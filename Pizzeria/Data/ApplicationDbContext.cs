@@ -17,6 +17,23 @@ namespace Pizzeria.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // DishId och IngredientId blir primary key (Många till Många)
+
+            builder.Entity<DishIngredient>()
+                .HasKey(di => new { di.DishId, di.IngredientId}); 
+
+            builder.Entity<DishIngredient>()
+                .HasOne(di => di.Dish)
+                .WithMany(d => d.DishIngredients)
+                .HasForeignKey(di => di.DishId);
+
+            builder.Entity<DishIngredient>()
+                .HasOne(di => di.Ingredient)
+                .WithMany(i => i.DishIngredients)
+                .HasForeignKey(di => di.IngredientId);
+
+
+
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
@@ -24,5 +41,7 @@ namespace Pizzeria.Data
         }
 
         public DbSet<Dish> Dishes { get; set; } //Databas collection of dish
+        public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<DishIngredient> DishIngredients { get; set; }
     }
 }

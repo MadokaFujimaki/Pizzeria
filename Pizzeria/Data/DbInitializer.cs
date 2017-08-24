@@ -29,10 +29,25 @@ namespace Pizzeria.Data
             //Om det inte finns Dishes i databasen
             if (context.Dishes.ToList().Count == 0)
             {
-                var capricciosa = new Dish { Name = "Capricciosa" , Price=79};
-                var margaritha = new Dish { Name = "Margaritha", Price=69 };
-                var hawaii = new Dish { Name = "Hawaii", Price=85 };
-                context.AddRange(capricciosa, margaritha, hawaii);
+
+                var cheese = new Ingredient { Name = "Cheese" };
+                var tomatoe = new Ingredient { Name = "Tomatoe" };
+                var ham = new Ingredient { Name = "Ham" };
+                var capricciosa = new Dish { Name = "Capricciosa", Price = 79 };
+                var margaritha = new Dish { Name = "Margaritha", Price = 69 };
+                var hawaii = new Dish { Name = "Hawaii", Price = 85 };
+                var capricciosaCheese = new DishIngredient { Dish = capricciosa, Ingredient = cheese };
+                var capricciosaTomatoe = new DishIngredient { Dish = capricciosa, Ingredient = tomatoe };
+                var capricciosaHam = new DishIngredient { Dish = capricciosa, Ingredient = ham };
+                capricciosa.DishIngredients = new List<DishIngredient>();
+                capricciosa.DishIngredients.Add(capricciosaTomatoe);
+                capricciosa.DishIngredients.Add(capricciosaCheese);
+                capricciosa.DishIngredients.Add(capricciosaHam);
+                context.Dishes.Add(capricciosa);
+                context.Dishes.Add(margaritha);
+                context.Dishes.Add(hawaii);
+
+                //context.AddRange(capricciosa, margaritha, hawaii);
                 context.SaveChanges();
             }
         }

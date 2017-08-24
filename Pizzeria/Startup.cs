@@ -26,6 +26,9 @@ namespace Pizzeria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("DefaultConnection"));
 
@@ -37,6 +40,11 @@ namespace Pizzeria
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<UserManager<ApplicationUser>>();
             services.AddTransient<RoleManager<IdentityRole>>();
+
+            //services.AddTransient<CartService>();
+            //services.AddTransient<DishService>();
+            //services.AddTransient<IngredientService>();
+            //services.AddTransient<CartItemIngredientService>();
 
             services.AddMvc();
         }
