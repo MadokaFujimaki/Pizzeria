@@ -82,7 +82,7 @@ namespace Pizzeria.Data
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDish> OrderDishes { get; set; }
-        //public DbSet<DishCategory> DishCategories { get; set; }
+        public DbSet<DishCategory> DishCategories { get; set; }
         public DbSet<Dish> Dishes { get; set; } //Databas collection of dish
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }

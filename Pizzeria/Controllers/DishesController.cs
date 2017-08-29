@@ -59,6 +59,18 @@ namespace Pizzeria.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DishId,Name,Price")] Dish dish, IFormCollection collection)
         {
+            List<Ingredient> testList = new List<Ingredient>();
+
+            foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
+            {
+                var listIngredient = _context.Ingredients.FirstOrDefault(d => d.IngredientId == Int32.Parse(item.Remove(0, 11)));
+
+                testList.Add(listIngredient);
+
+                DishIngredient di = new DishIngredient() { Dish = dish, Ingredient = listIngredient };
+                _context.DishIngredients.Add(di);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(dish);

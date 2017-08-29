@@ -47,10 +47,12 @@ namespace Pizzeria.Data
                 context.Dishes.Add(margaritha);
                 context.Dishes.Add(hawaii);
 
-                //var pizza1 = new DishCategory { Discription = "Pizza1" };
-                //var pizza2 = new DishCategory { Discription = "Pizza2" };
-                //var pizza3 = new DishCategory { Discription = "Pizza3" };
-                //context.DishCategories.Add();
+                var pizza1 = new DishCategory { Discription = "Pizza1" };
+                var pizza2 = new DishCategory { Discription = "Pizza2" };
+                var pizza3 = new DishCategory { Discription = "Pizza3" };
+                context.DishCategories.Add(pizza1);
+                context.DishCategories.Add(pizza2);
+                context.DishCategories.Add(pizza3);
 
                 //context.AddRange(capricciosa, margaritha, hawaii);
                 context.SaveChanges();
