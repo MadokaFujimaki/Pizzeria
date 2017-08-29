@@ -29,7 +29,7 @@ namespace Pizzeria.Data
             //Om det inte finns Dishes i databasen
             if (context.Dishes.ToList().Count == 0)
             {
-
+                //var pizzaImage = LoadImage.GetPictureData();
                 var cheese = new Ingredient { Name = "Cheese" };
                 var tomatoe = new Ingredient { Name = "Tomatoe" };
                 var ham = new Ingredient { Name = "Ham" };

@@ -7,16 +7,29 @@ using Microsoft.AspNetCore.Mvc;
 using Pizzeria.Models;
 using Microsoft.AspNetCore.Http;
 using Pizzeria.Services;
+using Pizzeria.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pizzeria.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
         }
 
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Dishes.ToListAsync());
+        }
 
         public IActionResult About()
         {

@@ -9,3 +9,10 @@
             Html.RenderPartial("_Dish", dish);
         }
     }*@
+
+@model IEnumerable<Pizzeria.Models.Dish>
+
+    @foreach (var dish in Model)
+    {
+        Html.RenderPartial("_Dish", dish);
+    }
