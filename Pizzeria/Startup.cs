@@ -38,15 +38,24 @@ namespace Pizzeria
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<UserManager<ApplicationUser>>();
-            services.AddTransient<RoleManager<IdentityRole>>();
+            //services.AddTransient<UserManager<ApplicationUser>>();
+            //services.AddTransient<RoleManager<IdentityRole>>();
 
             //services.AddTransient<CartService>();
-            //services.AddTransient<DishService>();
-            //services.AddTransient<IngredientService>();
+            services.AddTransient<DishService>();
+            services.AddTransient<IngredientService>();
             //services.AddTransient<CartItemIngredientService>();
+            //services.AddTransient<PaymentService>();
 
             services.AddMvc();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(600);
+                options.Cookie.HttpOnly = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

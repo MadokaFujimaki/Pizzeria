@@ -1,0 +1,11 @@
+﻿@*@model IEnumerable<Pizzeria.Models.DishCategory>
+
+
+    @foreach (var DishCategory in Model)
+    {
+        <h3>@DishCategory.Discription</h3>
+        @foreach (var dish in DishCategory.Dishes)
+        {
+            Html.RenderPartial("_Dish", dish);
+        }
+    }*@

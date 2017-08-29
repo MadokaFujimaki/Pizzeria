@@ -1,0 +1,35 @@
+﻿@*@inject Pizzeria.Services.CartService CartService*@
+
+<h2>Your Order : </h2>
+<ul>
+    @*@{
+        var cart = CartService.GetCartForCurrentSession(Context.Session).Result;
+
+    }*@
+    @*@if (cart != null)
+    {
+        var total = CartService.CalculateTotal(cart.CartId);
+        <ul>
+
+            @foreach (var ci in cart.Items)
+            {
+                <li>
+                    @ci.Dish.Description @ci.Dish.Price
+                    <button type="submit" class="remove" name="customize-@ci.CartItemId">
+                        <span class="glyphicon glyphicon-adjust" title="Customize"></span>
+                    </button>
+                    <button type="submit" class="customize" name="remove-@ci.CartItemId">
+                        <span class="glyphicon glyphicon-trash" title="Remove"></span>
+                    </button>
+                </li>
+            }
+        </ul>*@
+    @*}*@
+</ul>
+
+
+
+@*@if (cart.Items.Count > 0)
+{
+    <h4>Total</h4>
+}*@
