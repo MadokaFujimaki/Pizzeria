@@ -2,7 +2,7 @@
 @inject Pizzeria.Services.DishService DishService
 
 @{ 
-    var url = Url.Action("getImg", "Dishes", new { DishId = Model.DishId });
+    var url = Url.Action("GetImg", "Dishes", new { id = Model.DishId });
 }
 
 <div class="dish">
@@ -12,7 +12,6 @@
                 <img src="@url" style="width: 100%" />
             </td>
             <td style="width:85%">
-                @*<p>@Model.Description @Model.Price</p>*@
                 <p>@Model.Name @Model.Price</p>
                 <p>@DishService.IngredientList(Model.DishId)</p>
             </td>

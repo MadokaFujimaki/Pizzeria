@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Pizzeria.Models;
+using Pizzeria.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +30,14 @@ namespace Pizzeria.Data
             //Om det inte finns Dishes i databasen
             if (context.Dishes.ToList().Count == 0)
             {
-                //var pizzaImage = LoadImage.GetPictureData();
+                var pizzaImage = LoadImage.GetPictureData("wwwroot/images/pizza.jpg");
+
                 var cheese = new Ingredient { Name = "Cheese" };
                 var tomatoe = new Ingredient { Name = "Tomatoe" };
                 var ham = new Ingredient { Name = "Ham" };
-                var capricciosa = new Dish { Name = "Capricciosa", Price = 79 };
-                var margaritha = new Dish { Name = "Margaritha", Price = 69 };
-                var hawaii = new Dish { Name = "Hawaii", Price = 85 };
+                var capricciosa = new Dish { Name = "Capricciosa", Price = 79 , Image=pizzaImage};
+                var margaritha = new Dish { Name = "Margaritha", Price = 69, Image = pizzaImage };
+                var hawaii = new Dish { Name = "Hawaii", Price = 85, Image = pizzaImage };
                 var capricciosaCheese = new DishIngredient { Dish = capricciosa, Ingredient = cheese };
                 var capricciosaTomatoe = new DishIngredient { Dish = capricciosa, Ingredient = tomatoe };
                 var capricciosaHam = new DishIngredient { Dish = capricciosa, Ingredient = ham };

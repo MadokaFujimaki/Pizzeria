@@ -38,14 +38,15 @@ namespace Pizzeria
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            //services.AddTransient<UserManager<ApplicationUser>>();
-            //services.AddTransient<RoleManager<IdentityRole>>();
+            services.AddTransient<UserManager<ApplicationUser>>();
+            services.AddTransient<RoleManager<IdentityRole>>();
 
             //services.AddTransient<CartService>();
             services.AddTransient<DishService>();
             services.AddTransient<IngredientService>();
             //services.AddTransient<CartItemIngredientService>();
             //services.AddTransient<PaymentService>();
+ 
 
             services.AddMvc();
 

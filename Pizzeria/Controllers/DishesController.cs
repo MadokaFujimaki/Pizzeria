@@ -164,5 +164,16 @@ namespace Pizzeria.Controllers
         {
             return _context.Dishes.Any(e => e.DishId == id);
         }
+
+
+
+
+        public FileContentResult GetImg(int id)
+        {
+            byte[] byteArray = _context.Dishes.Find(id).Image;
+            return byteArray != null
+                ? new FileContentResult(byteArray, "image/jpeg")
+                : null;
+        }
     }
 }
