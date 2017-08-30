@@ -83,8 +83,26 @@ namespace Pizzeria.Controllers
         }
 
         // GET: Dishes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, IFormCollection collection)
         {
+            List<DishIngredient> selected = _context.Dishes.Where(x => x.DishId == id).Select(i => i.DishIngredients).SingleOrDefault();
+            foreach (var item in selected)
+            {
+                foreach (var ing in collection)
+                {
+                    //if (item.IngredientId == )
+                    //{
+
+                    //}
+                }
+
+
+                //foreach (var item.Ingredient.Name in collection.Keys.Where(m => m.))
+                //{
+
+                //}
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -105,6 +123,8 @@ namespace Pizzeria.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DishId,Name,Price")] Dish dish)
         {
+            //_context.DishIngredients
+
             if (id != dish.DishId)
             {
                 return NotFound();

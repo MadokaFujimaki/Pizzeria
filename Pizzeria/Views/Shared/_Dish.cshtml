@@ -11,9 +11,14 @@
             <td style="width:10%">
                 <img src="@url" style="width: 100%" />
             </td>
-            <td style="width:85%">
-                <p>@Model.Name @Model.Price @Model.DishCategory.Discription</p>
+            <td style="width:5%">
+            </td>
+            <td style="width:75%">
+                <h4>@Model.Name</h4>
                 <p>@DishService.IngredientList(Model.DishId)</p>
+            </td>
+            <td style="width:30%">
+                <h4> @Model.Price kr</h4>
             </td>
             <td style="width:5%">
                 <button type="submit" class="buy" name="add-@Model.DishId">

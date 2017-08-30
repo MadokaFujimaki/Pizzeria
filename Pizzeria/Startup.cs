@@ -44,9 +44,10 @@ namespace Pizzeria
             //services.AddTransient<CartService>();
             services.AddTransient<DishService>();
             services.AddTransient<IngredientService>();
+            services.AddTransient<DishCategoryService>();
             //services.AddTransient<CartItemIngredientService>();
             //services.AddTransient<PaymentService>();
- 
+
 
             services.AddMvc();
 

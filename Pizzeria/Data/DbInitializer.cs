@@ -31,37 +31,89 @@ namespace Pizzeria.Data
             if (context.Dishes.ToList().Count == 0)
             {
                 var pizzaImage = LoadImage.GetPictureData("wwwroot/images/pizza.jpg");
+                var carzonesImage = LoadImage.GetPictureData("wwwroot/images/carzone.jpg");
+                var dessertImage = LoadImage.GetPictureData("wwwroot/images/dessert.jpg");
 
-                var classicPizza = new DishCategory { Discription = "Classic Pizza" };
-                var italianPizza = new DishCategory { Discription = "Italian Pizza" };
-                var amerikanPizza = new DishCategory { Discription = "Amerikan Pizza" };
+                var pizza = new DishCategory { Discription = "Pizza" };
+                var carzone = new DishCategory { Discription = "Carzone" };
+                var dessert = new DishCategory { Discription = "Dessert" };
 
-                context.DishCategories.Add(classicPizza);
-                context.DishCategories.Add(italianPizza);
-                context.DishCategories.Add(amerikanPizza);
+                context.DishCategories.Add(pizza);
+                context.DishCategories.Add(carzone);
+                context.DishCategories.Add(dessert);
 
                 var cheese = new Ingredient { Name = "Cheese" };
-                var tomatoe = new Ingredient { Name = "Tomatoe" };
+                var tomato = new Ingredient { Name = "Tomato" };
                 var ham = new Ingredient { Name = "Ham" };
+                var pineapple = new Ingredient { Name = "Pineapple" };
+                var bacon = new Ingredient { Name = "Bacon" };
+                var onions = new Ingredient { Name = "Onions" };
+                var mushrooms = new Ingredient { Name = "Mushrooms" };
+                var banana = new Ingredient { Name = "Banana" };
+                var apple = new Ingredient { Name = "Apple" };
+                var currySauce = new Ingredient { Name = "Curry Sauce" };
 
-                var capricciosa = new Dish { Name = "Capricciosa", Price = 79 , Image=pizzaImage, DishCategory = classicPizza };
-                var margaritha = new Dish { Name = "Margaritha", Price = 69, Image = pizzaImage, DishCategory = italianPizza };
-                var hawaii = new Dish { Name = "Hawaii", Price = 85, Image = pizzaImage, DishCategory = amerikanPizza };
+                var capricciosa = new Dish { Name = "Capricciosa", Price = 79 , Image=pizzaImage, DishCategory = pizza };
+                var margaritha = new Dish { Name = "Margaritha", Price = 69, Image = pizzaImage, DishCategory = pizza };
+                var hawaii = new Dish { Name = "Hawaii", Price = 85, Image = pizzaImage, DishCategory = pizza };
+                var tropical = new Dish { Name = "Tropical", Price = 75, Image = pizzaImage, DishCategory = pizza };
+                var veggie = new Dish { Name = "Veggie", Price = 95, Image = pizzaImage, DishCategory = pizza };
+                var calzone = new Dish { Name = "Calzone", Price = 100, Image = carzonesImage, DishCategory = carzone };
+                var calzoneSp = new Dish { Name = "Calzone SP", Price = 115, Image = carzonesImage, DishCategory = carzone };
+                var applePie = new Dish { Name = "Apple Pie", Price = 70, Image = dessertImage, DishCategory = dessert };
 
-                var capricciosaCheese = new DishIngredient { Dish = capricciosa, Ingredient = cheese };
-                var capricciosaTomatoe = new DishIngredient { Dish = capricciosa, Ingredient = tomatoe };
                 var capricciosaHam = new DishIngredient { Dish = capricciosa, Ingredient = ham };
-
+                var capricciosaMushrooms = new DishIngredient { Dish = capricciosa, Ingredient = mushrooms };
                 capricciosa.DishIngredients = new List<DishIngredient>();
-                capricciosa.DishIngredients.Add(capricciosaTomatoe);
-                capricciosa.DishIngredients.Add(capricciosaCheese);
                 capricciosa.DishIngredients.Add(capricciosaHam);
+                capricciosa.DishIngredients.Add(capricciosaMushrooms);
+
+                var margarithaCheese = new DishIngredient { Dish = margaritha, Ingredient = cheese };
+                margaritha.DishIngredients = new List<DishIngredient>();
+                margaritha.DishIngredients.Add(margarithaCheese);
+
+                var hawaiiHam = new DishIngredient { Dish = hawaii, Ingredient = ham };
+                var hawaiiPineapple = new DishIngredient { Dish = hawaii, Ingredient = pineapple };
+                hawaii.DishIngredients = new List<DishIngredient>();
+                hawaii.DishIngredients.Add(hawaiiHam);
+                hawaii.DishIngredients.Add(hawaiiPineapple);
+
+                var tropicalBanana = new DishIngredient { Dish = tropical, Ingredient = banana };
+                var tropicalCurrySauce = new DishIngredient { Dish = tropical, Ingredient = currySauce };
+                tropical.DishIngredients = new List<DishIngredient>();
+                tropical.DishIngredients.Add(tropicalBanana);
+                tropical.DishIngredients.Add(tropicalCurrySauce);
+
+                var veggieMushrooms = new DishIngredient { Dish = veggie, Ingredient = mushrooms };
+                var veggieOnions = new DishIngredient { Dish = veggie, Ingredient = onions };
+                var veggieTomato = new DishIngredient { Dish = veggie, Ingredient = tomato };
+                veggie.DishIngredients = new List<DishIngredient>();
+                veggie.DishIngredients.Add(veggieMushrooms);
+                veggie.DishIngredients.Add(veggieOnions);
+                veggie.DishIngredients.Add(veggieTomato);
+
+                var calzoneHam = new DishIngredient { Dish = calzone, Ingredient = ham };
+                calzone.DishIngredients = new List<DishIngredient>();
+                calzone.DishIngredients.Add(calzoneHam);
+
+                var calzoneSpHam = new DishIngredient { Dish = calzoneSp, Ingredient = ham };
+                var calzoneSpMushrooms = new DishIngredient { Dish = calzoneSp, Ingredient = mushrooms };
+                calzoneSp.DishIngredients = new List<DishIngredient>();
+                calzoneSp.DishIngredients.Add(calzoneSpHam);
+                calzoneSp.DishIngredients.Add(calzoneSpMushrooms);
+
+                var applePieApple = new DishIngredient { Dish = applePie, Ingredient = apple };
+                applePie.DishIngredients = new List<DishIngredient>();
+                applePie.DishIngredients.Add(applePieApple);
+
                 context.Dishes.Add(capricciosa);
                 context.Dishes.Add(margaritha);
                 context.Dishes.Add(hawaii);
-
-
-
+                context.Dishes.Add(tropical);
+                context.Dishes.Add(veggie);
+                context.Dishes.Add(calzone);
+                context.Dishes.Add(calzoneSp);
+                context.Dishes.Add(applePie);
 
 
                 //context.AddRange(capricciosa, margaritha, hawaii);
