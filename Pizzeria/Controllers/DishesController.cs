@@ -86,22 +86,39 @@ namespace Pizzeria.Controllers
         public async Task<IActionResult> Edit(int? id, IFormCollection collection)
         {
             List<DishIngredient> selected = _context.Dishes.Where(x => x.DishId == id).Select(i => i.DishIngredients).SingleOrDefault();
-            foreach (var item in selected)
+            foreach (var ingredient in selected)
             {
-                foreach (var ing in collection)
-                {
-                    //if (item.IngredientId == )
-                    //{
-
-                    //}
-                }
-
-
-                //foreach (var item.Ingredient.Name in collection.Keys.Where(m => m.))
-                //{
-
-                //}
+                ingredient.selected = true;
             }
+
+            //foreach (var item in _context.Dishes)
+            //{
+            //    if (_context.Dishes.dish)
+            //    {
+
+            //    }
+            //}
+
+
+      
+
+            //foreach (var item in selected)
+            //{
+            //    foreach (var ing in collection.Keys.Where(m => m.StartsWith("ingredient-")))
+            //    {
+            //    }
+            //    //foreach (var item.Ingredient.Name in collection.Keys.Where(m => m.))
+            //    //{
+
+            //    //}
+            //}
+
+
+            //if (!string.IsNullOrEmpty(collection["checkResp"])
+            //{
+            //    string checkResp = collection["checkResp"];
+            //    bool checkRespB = Convert.ToBoolean(checkResp);
+            //}
 
             if (id == null)
             {

@@ -49,9 +49,9 @@ namespace Pizzeria.Data
                 var bacon = new Ingredient { Name = "Bacon" };
                 var onions = new Ingredient { Name = "Onions" };
                 var mushrooms = new Ingredient { Name = "Mushrooms" };
-                var banana = new Ingredient { Name = "Banana" };
                 var apple = new Ingredient { Name = "Apple" };
                 var currySauce = new Ingredient { Name = "Curry Sauce" };
+                var banana = new Ingredient { Name = "Banana" };
 
                 var capricciosa = new Dish { Name = "Capricciosa", Price = 79 , Image=pizzaImage, DishCategory = pizza };
                 var margaritha = new Dish { Name = "Margaritha", Price = 69, Image = pizzaImage, DishCategory = pizza };

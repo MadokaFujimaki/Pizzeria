@@ -21,9 +21,6 @@ namespace Pizzeria.Data
         {
             // DishId och IngredientId blir primary key (Många till Många)
 
-
-
-
             builder.Entity<DishIngredient>()
                 .HasKey(di => new { di.DishId, di.IngredientId });
 
@@ -72,13 +69,6 @@ namespace Pizzeria.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
-
-            //builder.Ignore<IdentityUserLogin<string>>();
-            //builder.Ignore<IdentityUserRole<string>>();
-            //builder.Ignore<IdentityUserClaim<string>>();
-            //builder.Ignore<IdentityUserToken<string>>();
-            //builder.Ignore<IdentityUser<string>>();
-            //builder.Ignore<ApplicationUser>();
         }
 
         public DbSet<Order> Orders { get; set; }
