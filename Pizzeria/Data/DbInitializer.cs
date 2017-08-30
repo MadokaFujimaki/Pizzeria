@@ -32,15 +32,26 @@ namespace Pizzeria.Data
             {
                 var pizzaImage = LoadImage.GetPictureData("wwwroot/images/pizza.jpg");
 
+                var classicPizza = new DishCategory { Discription = "Classic Pizza" };
+                var italianPizza = new DishCategory { Discription = "Italian Pizza" };
+                var amerikanPizza = new DishCategory { Discription = "Amerikan Pizza" };
+
+                context.DishCategories.Add(classicPizza);
+                context.DishCategories.Add(italianPizza);
+                context.DishCategories.Add(amerikanPizza);
+
                 var cheese = new Ingredient { Name = "Cheese" };
                 var tomatoe = new Ingredient { Name = "Tomatoe" };
                 var ham = new Ingredient { Name = "Ham" };
-                var capricciosa = new Dish { Name = "Capricciosa", Price = 79 , Image=pizzaImage};
-                var margaritha = new Dish { Name = "Margaritha", Price = 69, Image = pizzaImage };
-                var hawaii = new Dish { Name = "Hawaii", Price = 85, Image = pizzaImage };
+
+                var capricciosa = new Dish { Name = "Capricciosa", Price = 79 , Image=pizzaImage, DishCategory = classicPizza };
+                var margaritha = new Dish { Name = "Margaritha", Price = 69, Image = pizzaImage, DishCategory = italianPizza };
+                var hawaii = new Dish { Name = "Hawaii", Price = 85, Image = pizzaImage, DishCategory = amerikanPizza };
+
                 var capricciosaCheese = new DishIngredient { Dish = capricciosa, Ingredient = cheese };
                 var capricciosaTomatoe = new DishIngredient { Dish = capricciosa, Ingredient = tomatoe };
                 var capricciosaHam = new DishIngredient { Dish = capricciosa, Ingredient = ham };
+
                 capricciosa.DishIngredients = new List<DishIngredient>();
                 capricciosa.DishIngredients.Add(capricciosaTomatoe);
                 capricciosa.DishIngredients.Add(capricciosaCheese);
@@ -49,12 +60,9 @@ namespace Pizzeria.Data
                 context.Dishes.Add(margaritha);
                 context.Dishes.Add(hawaii);
 
-                var pizza1 = new DishCategory { Discription = "Pizza1" };
-                var pizza2 = new DishCategory { Discription = "Pizza2" };
-                var pizza3 = new DishCategory { Discription = "Pizza3" };
-                context.DishCategories.Add(pizza1);
-                context.DishCategories.Add(pizza2);
-                context.DishCategories.Add(pizza3);
+
+
+
 
                 //context.AddRange(capricciosa, margaritha, hawaii);
                 context.SaveChanges();

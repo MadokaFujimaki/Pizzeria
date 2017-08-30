@@ -15,6 +15,9 @@ namespace Pizzeria.Models
         public List<DishIngredient> DishIngredients { get; set; }
         public List<OrderDish> OrderDishes { get; set; }
         public byte[] Image { get; set; }
+        public int DishCategoryId { get; set; }
+        public DishCategory DishCategory { get; set; }
+
 
     }
 }

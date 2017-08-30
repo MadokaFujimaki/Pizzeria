@@ -28,7 +28,7 @@ namespace Pizzeria.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Dishes.ToListAsync());
+            return View(await _context.Dishes.Include(x => x.DishCategory).ToListAsync());
         }
 
         public IActionResult About()

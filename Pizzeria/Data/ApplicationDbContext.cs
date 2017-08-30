@@ -21,6 +21,9 @@ namespace Pizzeria.Data
         {
             // DishId och IngredientId blir primary key (Många till Många)
 
+
+
+
             builder.Entity<DishIngredient>()
                 .HasKey(di => new { di.DishId, di.IngredientId });
 
@@ -33,8 +36,6 @@ namespace Pizzeria.Data
                 .HasOne(di => di.Ingredient)
                 .WithMany(i => i.DishIngredients)
                 .HasForeignKey(di => di.IngredientId);
-
-
 
 
             builder.Entity<CartItemIngredient>()
