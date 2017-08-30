@@ -22,7 +22,7 @@ namespace Pizzeria.Controllers
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ingredients.ToListAsync());
+            return View(await _context.Ingredients.OrderBy(x=> x.Name).ToListAsync());
         }
 
         // GET: Ingredients/Details/5
