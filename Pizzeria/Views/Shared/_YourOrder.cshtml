@@ -1,7 +1,13 @@
-﻿@*@inject Pizzeria.Services.CartService CartService*@
+﻿@inject Pizzeria.Services.CartService CartService
 
 <h2>Your Order : </h2>
-<ul>
+
+@CartService.Total()
+
+
+
+
+@*<ul>*@
     @*@{
         var cart = CartService.GetCartForCurrentSession(Context.Session).Result;
 
@@ -25,7 +31,7 @@
             }
         </ul>*@
     @*}*@
-</ul>
+@*</ul>*@
 
 
 

@@ -78,7 +78,7 @@ namespace Pizzeria.Data
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
         public DbSet<CartItemIngredient> CartItemIngredient { get; set; }
-        //public DbSet<CartService> Carts { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
 
         //public DbSet<Order> Orders { get; set; }

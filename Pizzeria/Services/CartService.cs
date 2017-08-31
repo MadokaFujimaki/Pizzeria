@@ -1,63 +1,56 @@
-﻿//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
-//using Pizzeria.Data;
-//using Pizzeria.Models;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Pizzeria.Data;
+using Pizzeria.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-//namespace Pizzeria.Services
-//{
-//    public class CartService
-//    {
-//        public ApplicationDbContext _context { get; set; }
+namespace Pizzeria.Services
+{
+    public class CartService
+    {
+        private readonly ApplicationDbContext _context;
+        private readonly IServiceProvider _services;
+        private readonly ISession _session;
 
-//        public List<CartItem> Item { get; set; }
-//        public int CartId { get; set; }
+        public CartService(ApplicationDbContext context, IServiceProvider services)
+        {
+            _context = context;
+            _services = services;
+            _session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
 
-//        public CartService(ApplicationDbContext context)
-//        {
-//            this._context = context;
-//        }
+        }
 
-//        public int GetTempCartId(ISession session)
-//        {
-//            if (!session.GetInt32("CartId").HasValue)
-//            {
-//                var tempCart = new CartService(_context) { Item = new List<CartItem>()};
-//                _context.Carts.Add(tempCart);
-//                _context.SaveChanges();
-//                session.SetInt32("CartId", tempCart.CartId);
-//            }
-//            var cartId = session.GetInt32("CartId").Value;
-//            return cartId;
-//        }
+        public void AddDish(int dishId)
+        {
+            byte[] cartIdBytes = new byte[4];
+            bool exist = _session.TryGetValue("cartId", out cartIdBytes);
+            {
+                if (! exist)
+                {
+                    Cart cart = new Cart();
+                    _context.Add(cart);
+                    _context.SaveChanges();
+                    _session.SetInt32("cartId", cart.CartId);
+                }
+                else
+                {
+                    int cartId = _session.GetInt32("cartId").Value;
+                    CartItem cartItem = new CartItem();
+                    cartItem.CartId = cartId;
+                    cartItem.DishId = dishId;
 
-//        //public async Task<Cart> GetCartForCurrentSession(ISession session)
-//        //{
-//        //    var cartItem = new CartItem();
-//        //    cartItem.CartId = GetTempCartId(session);
-//        //    cartItem.Dish = _context.Dishes.Find(cartItem.DishId);
-//        //    _context.Add(cartItem);
-//        //    await _context.SaveChangesAsync();
-//        //    return cartItem;
+                    _context.Add(cartItem);
+                    _context.SaveChanges();
+                }
+            }
+        }
 
-//        //}
-
-//        public async Task AddItemForCurrentSession(ISession session , int dishId)
-//        {
-//            var cartItem = new CartItem();
-//            cartItem.CartId = GetTempCartId(session);
-//            cartItem.Dish = _context.Dishes.Find(dishId);
-//            cartItem.Quantity = 1;
-//            _context.Add(cartItem);
-//            await _context.SaveChangesAsync();
-//        }
-
-//        //public async Task DeleteItemForCurrentSession(ISession session, int)
-//        //{
-
-//        //}
-//    }
-//}
+        public int Total()
+        {
+            return 123;
+        }
+    }
+}
