@@ -1,6 +1,4 @@
 ﻿@model Pizzeria.Models.Dish
-@inject Pizzeria.Services.IngredientService _ingredients
-@inject Pizzeria.Services.DishService _dishService
 
 @{
     ViewData["Title"] = "Edit";
@@ -26,23 +24,15 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="DishCategoryId" class="control-label"></label>
                 <select asp-for="DishCategoryId" class="form-control" asp-items="ViewBag.DishCategoryId"></select>
                 <span asp-validation-for="DishCategoryId" class="text-danger"></span>
             </div>
-
-            <div class="form-group checkbox">
-                @foreach (var ingredient in _ingredients.AllIngredients().OrderBy(x => x.Name).ToList())
-                {            
-                        string check = _dishService.HasIngredient(Model.DishId, ingredient.IngredientId) ? "checked" :  "";                 
-                    <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" value="true" @check />
-                                <p>
-                                    @ingredient.Name
-                                </p>
-                }
-            </div>
-
-
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -54,3 +44,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

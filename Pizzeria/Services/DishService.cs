@@ -16,7 +16,6 @@ namespace Pizzeria.Services
             this._context = context;
         }
 
-
         public string IngredientList(int dishId)
         {
             var dishIngredientList = _context.Dishes.Where(di => di.DishId == dishId).Select(i => i.DishIngredients).ToList();
@@ -31,6 +30,29 @@ namespace Pizzeria.Services
                 }
             }
             return string.Join(",  ",ingredients.OrderBy(x => x).ToList());
+        }
+
+        public bool HasIngredient(int dishID, int ingredientId)
+        {
+            foreach (var item in _context.Dishes.Where(x => x.DishId == dishID).Select(i => i.DishIngredients).SingleOrDefault())
+            {
+                if (item.IngredientId == ingredientId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void RemoveIngredients(int dishId)
+        {
+            var dishIngs = _context.DishIngredients.Where(x => x.DishId == dishId);
+
+            foreach (var ing in dishIngs)
+            {
+                _context.Remove(ing);
+            }
+            _context.SaveChanges();
         }
 
     }
