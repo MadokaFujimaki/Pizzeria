@@ -60,7 +60,12 @@ namespace Pizzeria.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                CustomerName = user.CustomerName,
+                Street = user.Street,
+                PostalCode = user.PostalCode,
+                City = user.City
+                
             };
 
             return View(model);
@@ -100,6 +105,22 @@ namespace Pizzeria.Controllers
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
             }
+
+            user.CustomerName = model.CustomerName;
+            var setCustomerName = await _userManager.UpdateAsync(user);
+
+            user.Street = model.Street;
+            var setStreet = await _userManager.UpdateAsync(user);
+
+            user.PostalCode = model.PostalCode;
+            var setPostalCode = await _userManager.UpdateAsync(user);
+
+            user.City = model.City;
+            var setCity = await _userManager.UpdateAsync(user);
+
+
+
+
 
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
