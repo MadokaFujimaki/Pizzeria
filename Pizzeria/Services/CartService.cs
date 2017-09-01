@@ -19,7 +19,7 @@ namespace Pizzeria.Services
         {
             _context = context;
             _services = services;
-            _session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            _session = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
 
         }
 

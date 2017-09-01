@@ -53,6 +53,7 @@ namespace Pizzeria
 
             services.AddDistributedMemoryCache();
 
+              // Added
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(600);
@@ -78,7 +79,7 @@ namespace Pizzeria
 
             app.UseAuthentication();
 
-            app.UseSession();
+            app.UseSession(); // Added
 
             app.UseMvc(routes =>
             {

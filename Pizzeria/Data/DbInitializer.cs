@@ -17,13 +17,13 @@ namespace Pizzeria.Data
             aUser.Email = "student@test.com";
             var r = userManager.CreateAsync(aUser, "Pa$$w0rd").Result;
 
-            var adminRole = new IdentityRole { Name = "Admin"};
-            var roleResult = roleManager.CreateAsync(adminRole).Result;
-
             var adminUser = new ApplicationUser();
             adminUser.UserName = "admin@test.com";
             adminUser.Email = "admin@test.com";
             var adminUserResult = userManager.CreateAsync(adminUser, "Pa$$w0rd").Result;
+
+            var adminRole = new IdentityRole { Name = "Admin"};
+            var roleResult = roleManager.CreateAsync(adminRole).Result;
 
             userManager.AddToRoleAsync(adminUser, "Admin");
 
@@ -42,16 +42,16 @@ namespace Pizzeria.Data
                 context.DishCategories.Add(carzone);
                 context.DishCategories.Add(dessert);
 
-                var cheese = new Ingredient { Name = "Cheese" };
-                var tomato = new Ingredient { Name = "Tomato" };
-                var ham = new Ingredient { Name = "Ham" };
-                var pineapple = new Ingredient { Name = "Pineapple" };
-                var bacon = new Ingredient { Name = "Bacon" };
-                var onions = new Ingredient { Name = "Onions" };
-                var mushrooms = new Ingredient { Name = "Mushrooms" };
-                var apple = new Ingredient { Name = "Apple" };
-                var currySauce = new Ingredient { Name = "Curry Sauce" };
-                var banana = new Ingredient { Name = "Banana" };
+                var cheese = new Ingredient { Name = "Cheese", Price=30 };
+                var tomato = new Ingredient { Name = "Tomato", Price = 10 };
+                var ham = new Ingredient { Name = "Ham", Price = 25 };
+                var pineapple = new Ingredient { Name = "Pineapple", Price = 10 };
+                var bacon = new Ingredient { Name = "Bacon", Price = 25 };
+                var onions = new Ingredient { Name = "Onions", Price = 10 };
+                var mushrooms = new Ingredient { Name = "Mushrooms", Price = 20 };
+                var apple = new Ingredient { Name = "Apple", Price = 20 };
+                var currySauce = new Ingredient { Name = "Curry Sauce", Price = 15 };
+                var banana = new Ingredient { Name = "Banana", Price = 10 };
 
                 var capricciosa = new Dish { Name = "Capricciosa", Price = 79 , Image=pizzaImage, DishCategory = pizza };
                 var margaritha = new Dish { Name = "Margaritha", Price = 69, Image = pizzaImage, DishCategory = pizza };

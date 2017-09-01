@@ -61,10 +61,10 @@ namespace Pizzeria.Controllers
             switch (action)
             {
                 //case "add":
-                //    _cartService.AddItemForCurrentSession(HttpContext.Session, id);
+                //    _cartService.AddDish(id);
                 //    break;
                 //case "remove":
-                //    _cartService.DeleteItemForCurrentSession(HttpContext.Session,id);
+                //    _cartService.DeleteItemForCurrentSession(HttpContext.Session, id);
                 //    break;
                 //case "customize":
                 //    return RedirectToAction("Customize", "CartItems", new { Cart });
