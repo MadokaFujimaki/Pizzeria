@@ -1,5 +1,6 @@
 ﻿@model Pizzeria.Models.Dish
 @inject Pizzeria.Services.DishService DishService
+@inject Pizzeria.Services.CartService CartService
 
 @{ 
     var url = Url.Action("GetImg", "Dishes", new { id = Model.DishId });
@@ -7,13 +8,14 @@
 
 <div class="dish">
     <table style="width:100%">
-        <tr>
+        <tr style="background-color:lightgoldenrodyellow">
+            <td style="width:5%"></td>
             <td style="width:10%">
                 <img src="@url" style="width: 100%" />
             </td>
             <td style="width:5%">
             </td>
-            <td style="width:75%">
+            <td style="width:65%">
                 <h4>@Model.Name</h4>
                 <p>@DishService.IngredientList(Model.DishId)</p>
             </td>
@@ -21,10 +23,11 @@
                 <h4> @Model.Price kr</h4>
             </td>
             <td style="width:5%">
-                <button type="submit" class="buy" name="add-@Model.DishId">
-                    <span class="glyphicon" glyphicon-shopping-cart></span>
+                <button type="submit" class="buy" name="add-@Model.DishId" style="margin-right:20px">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
                 </button>
             </td>
+            <td style="width:20%"></td>
         </tr>
     </table>
 </div>

@@ -7,7 +7,8 @@ namespace Pizzeria.Models
 {
     public class CartItemIngredient
     {
-        public int CartItemId { get; set; }
+        public int CartId { get; set; }
+        public int DishId { get; set; }
         public CartItem CartItem { get; set; }
         public int IngredientId { get; set; }
         public Ingredient Ingredient { get; set; }

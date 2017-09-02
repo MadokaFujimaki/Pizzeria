@@ -20,6 +20,18 @@ namespace Pizzeria.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // DishId och IngredientId blir primary key (Många till Många)
+            builder.Entity<CartItem>()
+               .HasKey(di => new { di.CartId, di.DishId });
+
+            builder.Entity<CartItem>()
+               .HasOne(di => di.Cart)
+               .WithMany(d => d.Item)
+               .HasForeignKey(di => di.CartId);
+
+            builder.Entity<CartItem>()
+               .HasOne(di => di.Dish)
+               .WithMany(i => i.Item)
+               .HasForeignKey(di => di.DishId);
 
             builder.Entity<DishIngredient>()
                 .HasKey(di => new { di.DishId, di.IngredientId });
@@ -36,12 +48,12 @@ namespace Pizzeria.Data
 
 
             builder.Entity<CartItemIngredient>()
-               .HasKey(di => new { di.CartItemId, di.IngredientId });
+               .HasKey(ci => new { ci.CartId, ci.IngredientId, ci.DishId});
 
             builder.Entity<CartItemIngredient>()
-               .HasOne(di => di.CartItem)
+               .HasOne(c => c.CartItem)
                .WithMany(d => d.CartItemIngredients)
-               .HasForeignKey(di => di.CartItemId);
+               .HasForeignKey(di => new { di.CartId, di.DishId });
 
             builder.Entity<CartItemIngredient>()
                .HasOne(di => di.Ingredient)
@@ -64,24 +76,23 @@ namespace Pizzeria.Data
 
 
 
-
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDish> OrderDishes { get; set; }
+
         public DbSet<DishCategory> DishCategories { get; set; }
         public DbSet<Dish> Dishes { get; set; } //Databas collection of dish
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
-        public DbSet<CartItemIngredient> CartItemIngredient { get; set; }
+        public DbSet<CartItemIngredient> CartItemIngredients { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> Item { get; set; }
 
 
-        //public DbSet<Order> Orders { get; set; }
-        //public DbSet<OrderDish> OrderDishes { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDish> OrderDishes { get; set; }
     }
 }

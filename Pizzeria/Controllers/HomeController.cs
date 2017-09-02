@@ -15,10 +15,12 @@ namespace Pizzeria.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly CartService _cartService;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, CartService  cartService)
         {
             _context = context;
+            _cartService = cartService;
         }
 
         //public IActionResult Index()
@@ -50,8 +52,6 @@ namespace Pizzeria.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        //public CartService _cartService { get; set; }
-
         public IActionResult AlacarteAction(IFormCollection Form)
         {
             var key = Form.Keys.FirstOrDefault(k => k.Contains("-"));
@@ -60,9 +60,9 @@ namespace Pizzeria.Controllers
             var id = int.Parse(key.Substring(dashPos + 1));
             switch (action)
             {
-                //case "add":
-                //    _cartService.AddDish(id);
-                //    break;
+                case "add":
+                    _cartService.AddDish(id);
+                    break;
                 //case "remove":
                 //    _cartService.DeleteItemForCurrentSession(HttpContext.Session, id);
                 //    break;
@@ -73,6 +73,5 @@ namespace Pizzeria.Controllers
 
             return RedirectToAction("");
         }
-
     }
 }

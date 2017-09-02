@@ -20,37 +20,87 @@ namespace Pizzeria.Services
             _context = context;
             _services = services;
             _session = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
-
         }
+
+        public Cart GetCart()
+        {
+            byte[] cartIdBytes = new byte[4];
+            bool exist = _session.TryGetValue("CartId", out cartIdBytes);
+            if (!exist)
+            {
+                //Cart cart = new Cart();
+                //_context.Add(cart);
+                //_context.SaveChanges();
+                //_session.SetInt32("CartId", cart.CartId);
+                //return cart;
+                return null;
+            }
+            else
+            {
+                var cartId = _session.GetInt32("CartId").Value;
+                _context.Dishes.Find(cartId).Item = _context.Item.Where(x => x.CartId == cartId).ToList();
+                var cart = _context.Carts.Where(x => x.CartId == 1).SingleOrDefault();
+                return cart;
+            }
+        }
+
+        //public IEnumerable<CartItem> GetCartItem()
+        //{
+        //    byte[] cartIdBytes = new byte[4];
+        //    bool exist = _session.TryGetValue("CartId", out cartIdBytes);
+        //    if (!exist)
+        //    {
+        //        Cart cart = new Cart();
+        //        _context.Add(cart);
+        //        _context.SaveChanges();
+        //        _session.SetInt32("CartId", cart.CartId);
+        //        return null;
+        //    }
+        //    else
+        //    {
+        //        var cartId = _session.GetInt32("CartId").Value;
+        //        var cartItem = _context.Item.Where(x => x.CartId == cartId);
+        //        return cartItem;
+        //    }
+        //}
+
 
         public void AddDish(int dishId)
         {
             byte[] cartIdBytes = new byte[4];
-            bool exist = _session.TryGetValue("cartId", out cartIdBytes);
+            bool exist = _session.TryGetValue("CartId", out cartIdBytes);
             {
                 if (! exist)
                 {
                     Cart cart = new Cart();
                     _context.Add(cart);
                     _context.SaveChanges();
-                    _session.SetInt32("cartId", cart.CartId);
-                }
-                else
-                {
-                    int cartId = _session.GetInt32("cartId").Value;
+                    _session.SetInt32("CartId", cart.CartId);
+
                     CartItem cartItem = new CartItem();
-                    cartItem.CartId = cartId;
-                    cartItem.DishId = dishId;
+                    cartItem.CartId = cart.CartId;
+                    cartItem.Dish = _context.Dishes.Find(dishId);
+                    cartItem.Quantity = 1;
 
                     _context.Add(cartItem);
                     _context.SaveChanges();
                 }
-            }
-        }
+                else
+                {
+                    int cartId = _session.GetInt32("CartId").Value;
+                    CartItem cartItem = new CartItem();
+                    cartItem.CartId = cartId;
+                    //cartItem.DishId = dishId;
+                    cartItem.Dish = _context.Dishes.Find(dishId);
+                    cartItem.Quantity = 1;
 
-        public int Total()
-        {
-            return 123;
+                    _context.Add(cartItem);
+                    _context.SaveChanges();
+                    _context.Dishes.Find(cartId).Item = _context.Item.Where(x => x.CartId == cartId).ToList();
+                    //var cart1 = _context.Carts.Find(cartId).Item;
+                    //var cart = _context.Carts.Where(x => x.CartId == cartId).SingleOrDefault();
+                }
+            }
         }
     }
 }
