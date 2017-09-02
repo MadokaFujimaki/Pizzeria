@@ -88,13 +88,21 @@ namespace Pizzeria.Services
                 else
                 {
                     int cartId = _session.GetInt32("CartId").Value;
-                    CartItem cartItem = new CartItem();
-                    cartItem.CartId = cartId;
-                    //cartItem.DishId = dishId;
-                    cartItem.Dish = _context.Dishes.Find(dishId);
-                    cartItem.Quantity = 1;
+                    var ci = _context.Item.FirstOrDefault(x => x.CartId == cartId && x.DishId == dishId);
+                    if (ci != null)
+                    {
+                        ci.Quantity += 1;
+                    }
+                    else
+                    {
+                        CartItem cartItem = new CartItem();
+                        cartItem.CartId = cartId;
+                        //cartItem.DishId = dishId;
+                        cartItem.Dish = _context.Dishes.Find(dishId);
+                        cartItem.Quantity = 1;
+                        _context.Add(cartItem);
+                    }
 
-                    _context.Add(cartItem);
                     _context.SaveChanges();
                     _context.Dishes.Find(cartId).Item = _context.Item.Where(x => x.CartId == cartId).ToList();
                     //var cart1 = _context.Carts.Find(cartId).Item;

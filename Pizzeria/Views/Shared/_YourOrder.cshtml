@@ -1,6 +1,7 @@
 ﻿@inject Pizzeria.Services.CartService CartService
 
 <h2>Your Order</h2>
+<br />
 
 @{
     var cart = CartService.GetCart();
@@ -13,22 +14,34 @@
         if (cart.Item != null)
         {
             foreach (var item in cart.Item)
-            {
-                <h1>
-                    @item.Dish.Name
-                </h1>
-                }
+            {          
+                    <table style="width:100%">
+                        <tr style="background-color:lightgoldenrodyellow">
+                            <td style="width:30%">@item.Dish.Name</td>
+                            <td style="width:20%"> @item.Dish.Price  kr</td>
+                            <td style="width:10%">x  @item.Quantity</td>
+                            <td style="width:5%">
+                                <button type="submit" class="remove" name="customize-@item.CartItemId">
+                                    <span class="glyphicon glyphicon-adjust" title="Customize"></span>
+                                </button>
+                            </td>
+                            <td style="width:5%">
+                                <button type="submit" class="customize" name="remove-@item.CartItemId">
+                                    <span class="glyphicon glyphicon-trash" title="Remove"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
             }
         }
     }
+}
 
 
 
-    @*@{
+@*@{
         var cartItem = CartService.GetCartItem();
     }
-
-
       @if (cartItem != null)
       {
           foreach (var item in cartItem)
@@ -42,34 +55,33 @@
 
 
 @*<ul>
-    @{
-        var cart = CartService.GetCartForCurrentSession(Context.Session).Result;
+        @{
+            var cart = CartService.GetCartForCurrentSession(Context.Session).Result;
+        }
+        @if (cart != null)
+        {
+            var total = CartService.CalculateTotal(cart.CartId);
+            <ul>
 
-    }
-    @if (cart != null)
-    {
-        var total = CartService.CalculateTotal(cart.CartId);
-        <ul>
-
-            @foreach (var ci in cart.Items)
-            {
-                <li>
-                    @ci.Dish.Description @ci.Dish.Price
-                    <button type="submit" class="remove" name="customize-@ci.CartItemId">
-                        <span class="glyphicon glyphicon-adjust" title="Customize"></span>
-                    </button>
-                    <button type="submit" class="customize" name="remove-@ci.CartItemId">
-                        <span class="glyphicon glyphicon-trash" title="Remove"></span>
-                    </button>
-                </li>
-            }
-        </ul>
-    }
-</ul>*@
+                @foreach (var ci in cart.Items)
+                {
+                    <li>
+                        @ci.Dish.Description @ci.Dish.Price
+                        <button type="submit" class="remove" name="customize-@ci.CartItemId">
+                            <span class="glyphicon glyphicon-adjust" title="Customize"></span>
+                        </button>
+                        <button type="submit" class="customize" name="remove-@ci.CartItemId">
+                            <span class="glyphicon glyphicon-trash" title="Remove"></span>
+                        </button>
+                    </li>
+                }
+            </ul>
+        }
+    </ul>*@
 
 
 
 @*@if (cart.Items.Count > 0)
-{
-    <h4>Total</h4>
-}*@
+    {
+        <h4>Total</h4>
+    }*@
