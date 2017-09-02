@@ -33,7 +33,7 @@ namespace Pizzeria.Services
             else
             {
                 var cartId = _session.GetInt32("CartId").Value;
-                _context.Dishes.Find(cartId).Item = _context.Item.Where(x => x.CartId == cartId).ToList();
+                _context.Dishes.Find(cartId).Item = _context.CartItems.Where(x => x.CartId == cartId).ToList();
                 var cart = _context.Carts.Where(x => x.CartId == 1).SingleOrDefault();
                 return cart;
             }
@@ -73,6 +73,7 @@ namespace Pizzeria.Services
                     _session.SetInt32("CartId", cart.CartId);
 
                     CartItem cartItem = new CartItem();
+                    cartItem.CartItemId = 0;
                     cartItem.CartId = cart.CartId;
                     cartItem.Dish = _context.Dishes.Find(dishId);
                     cartItem.Quantity = 1;
@@ -83,34 +84,57 @@ namespace Pizzeria.Services
                 else
                 {
                     int cartId = _session.GetInt32("CartId").Value;
-                    var ci = _context.Item.FirstOrDefault(x => x.CartId == cartId && x.DishId == dishId);
+                    var ci = _context.CartItems.FirstOrDefault(x => x.CartId == cartId && x.DishId == dishId);
                     if (ci != null)
                     {
                         ci.Quantity += 1;
                     }
                     else
                     {
-                        CartItem cartItem = new CartItem();
-                        cartItem.CartId = cartId;
-                        //cartItem.DishId = dishId;
-                        cartItem.Dish = _context.Dishes.Find(dishId);
-                        cartItem.Quantity = 1;
-                        _context.Add(cartItem);
+                        if (_context.Carts.Where(x => x.CartId == cartId).Select(x => x.CartItems) != null)
+                        {
+                            CartItem cartItem = new CartItem();
+                            cartItem.CartItemId = _context.CartItems.OrderByDescending(x => x.CartItemId).Select(x => x.CartItemId).FirstOrDefault() + 1;
+                            cartItem.CartId = cartId;
+                            //cartItem.DishId = dishId;
+                            cartItem.Dish = _context.Dishes.Find(dishId);
+                            cartItem.Quantity = 1;
+                            _context.Add(cartItem);
+                        }
+                        else
+                        {
+                            CartItem cartItem = new CartItem();
+                            cartItem.CartItemId = 0;
+                            cartItem.CartId = cartId;
+                            cartItem.Dish = _context.Dishes.Find(dishId);
+                            cartItem.Quantity = 1;
+                            _context.Add(cartItem);
+                        }         
                     }
-
                     _context.SaveChanges();
-                    _context.Dishes.Find(cartId).Item = _context.Item.Where(x => x.CartId == cartId).ToList();
-                    //var cart1 = _context.Carts.Find(cartId).Item;
-                    //var cart = _context.Carts.Where(x => x.CartId == cartId).SingleOrDefault();
+                    _context.Dishes.Find(cartId).Item = _context.CartItems.Where(x => x.CartId == cartId).ToList();
                 }
             }
         }
 
-        public void DeleteDish()
+        public void DeleteDish(int cartItemId)
         {
-            int cartId = _session.GetInt32("CartId").Value;
-        }
+            //int cartId = _session.GetInt32("CartId").Value;
+            //var cart = _context.Carts.FirstOrDefault(x => x.CartId == cartId);
+            var cartItem = _context.CartItems.Where(x => x.CartItemId == cartItemId).FirstOrDefault();
+            _context.Remove(cartItem);
+            _context.SaveChanges();
 
+            //    var dishIngs = _context.DishIngredients.Where(x => x.DishId == dishId);
+
+            //    foreach (var ing in dishIngs)
+            //    {
+            //        _context.Remove(ing);
+            //    }
+            //    _context.SaveChanges();
+            //}
+
+        }
 
         public int CalculateTotal()
         {
@@ -120,16 +144,19 @@ namespace Pizzeria.Services
             if (exist)
             {
                 int cartId = _session.GetInt32("CartId").Value;
-                foreach (var cartItem in _context.Carts.FirstOrDefault(x => x.CartId == cartId).Item)
+                if (_context.Carts.FirstOrDefault(x => x.CartId == cartId).CartItems != null)
                 {
-                    if (cartItem.Quantity != 0)
+                    foreach (var cartItem in _context.Carts.FirstOrDefault(x => x.CartId == cartId).CartItems)
                     {
-                        total += cartItem.Dish.Price * cartItem.Quantity;
+                        if (cartItem.Quantity != 0)
+                        {
+                            total += cartItem.Dish.Price * cartItem.Quantity;
 
-                    }
-                    else
-                    {
-                        total += cartItem.Dish.Price;
+                        }
+                        else
+                        {
+                            total += cartItem.Dish.Price;
+                        }
                     }
                 }
             }

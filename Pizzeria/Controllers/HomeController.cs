@@ -63,12 +63,12 @@ namespace Pizzeria.Controllers
                 case "add":
                     _cartService.AddDish(id);
                     break;
-                //case "remove":
-                //    _cartService.DeleteDish();
-                //    break;
-                //case "customize":
-                //    return RedirectToAction("Customize", "CartItems", new { Cart });
-                //    break;
+                case "remove":
+                    _cartService.DeleteDish(id);
+                    break;
+                    //case "customize":
+                    //    return RedirectToAction("Customize", "CartItems", new { Cart });
+                    //    break;
             }
 
             return RedirectToAction("");

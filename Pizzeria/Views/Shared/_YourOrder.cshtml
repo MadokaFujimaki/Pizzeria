@@ -9,12 +9,20 @@
 
 
 @{
+    <table style="width:100%">
+        <tr style="background-color:lightgoldenrodyellow">
+            <td style="width:70%"><h4>Total</h4></td>
+            <td style="width:20%"><h4>@CartService.CalculateTotal()  kr</h4></td>
+        </tr>
+    </table>
+    <br />
+
     if (cart != null)
     {
-        if (cart.Item != null)
+        if (cart.CartItems != null)
         {
-            foreach (var item in cart.Item)
-            {          
+            foreach (var item in cart.CartItems.OrderBy(x=>x.Dish.Name))
+            {
                     <table style="width:100%">
                         <tr style="background-color:lightgoldenrodyellow">
                             <td style="width:30%">@item.Dish.Name</td>
@@ -33,15 +41,8 @@
                         </tr>
                     </table>
             }
-            <br />
         }
     }
-    <table style="width:100%">
-        <tr style="background-color:lightgoldenrodyellow">
-            <td style="width:70%">Total</td>
-            <td style="width:20%">@CartService.CalculateTotal()  kr</td>
-        </tr>
-    </table>
 }
 
 

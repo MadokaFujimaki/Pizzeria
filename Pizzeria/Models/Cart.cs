@@ -10,6 +10,6 @@ namespace Pizzeria.Models
         public int CartId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public int ApplicationUserId { get; set; }
-        public List<CartItem> Item { get; set; }
+        public List<CartItem> CartItems { get; set; }
     }
 }

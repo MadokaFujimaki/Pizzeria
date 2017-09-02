@@ -25,7 +25,7 @@ namespace Pizzeria.Data
 
             builder.Entity<CartItem>()
                .HasOne(di => di.Cart)
-               .WithMany(d => d.Item)
+               .WithMany(d => d.CartItems)
                .HasForeignKey(di => di.CartId);
 
             builder.Entity<CartItem>()
@@ -89,7 +89,7 @@ namespace Pizzeria.Data
         public DbSet<DishIngredient> DishIngredients { get; set; }
         public DbSet<CartItemIngredient> CartItemIngredients { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartItem> Item { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
 
         public DbSet<Order> Orders { get; set; }
