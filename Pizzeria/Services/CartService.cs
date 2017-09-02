@@ -28,11 +28,6 @@ namespace Pizzeria.Services
             bool exist = _session.TryGetValue("CartId", out cartIdBytes);
             if (!exist)
             {
-                //Cart cart = new Cart();
-                //_context.Add(cart);
-                //_context.SaveChanges();
-                //_session.SetInt32("CartId", cart.CartId);
-                //return cart;
                 return null;
             }
             else
@@ -109,6 +104,36 @@ namespace Pizzeria.Services
                     //var cart = _context.Carts.Where(x => x.CartId == cartId).SingleOrDefault();
                 }
             }
+        }
+
+        public void DeleteDish()
+        {
+            int cartId = _session.GetInt32("CartId").Value;
+        }
+
+
+        public int CalculateTotal()
+        {
+            var total = 0;
+            byte[] cartIdBytes = new byte[4];
+            bool exist = _session.TryGetValue("CartId", out cartIdBytes);
+            if (exist)
+            {
+                int cartId = _session.GetInt32("CartId").Value;
+                foreach (var cartItem in _context.Carts.FirstOrDefault(x => x.CartId == cartId).Item)
+                {
+                    if (cartItem.Quantity != 0)
+                    {
+                        total += cartItem.Dish.Price * cartItem.Quantity;
+
+                    }
+                    else
+                    {
+                        total += cartItem.Dish.Price;
+                    }
+                }
+            }
+            return total;
         }
     }
 }
