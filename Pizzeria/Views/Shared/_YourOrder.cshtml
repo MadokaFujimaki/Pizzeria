@@ -29,20 +29,42 @@
                             <td style="width:20%"> @item.Dish.Price  kr</td>
                             <td style="width:10%">x  @item.Quantity</td>
                             <td style="width:5%">
-                                <button type="submit" class="remove" name="customize-@item.CartItemId">
-                                    <span class="glyphicon glyphicon-adjust" title="Customize"></span>
+                                <button type="submit" class="customize" name="customize-@item.CartItemId">
+                                    <span class="glyphicon glyphicon-cog" title="Customize"></span>
                                 </button>
                             </td>
                             <td style="width:5%">
-                                <button type="submit" class="customize" name="remove-@item.CartItemId">
+                                <button type="submit" class="remove" name="remove-@item.CartItemId">
                                     <span class="glyphicon glyphicon-trash" title="Remove"></span>
                                 </button>
                             </td>
                         </tr>
+                        <tr>
+                            <td style="width:100%">
+                                @item.CartItemIngredients
+                            </td>
+                        </tr>
                     </table>
             }
+            <table>
+                <tr>
+                    @*<td style="width:100%">x  @</td>*@
+                </tr>
+            </table>
         }
     }
+    <br />
+    <table style="width:100%">
+        <tr >
+            <td style="width:70%"></td>
+            <td style="width:20%">
+                <button type="submit" class="pay" name="" >
+                    Submit
+                </button>
+            </td>
+        </tr>
+    </table>
+    <br />
 }
 
 

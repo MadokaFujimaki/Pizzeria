@@ -133,7 +133,6 @@ namespace Pizzeria.Services
             //    }
             //    _context.SaveChanges();
             //}
-
         }
 
         public int CalculateTotal()
@@ -151,7 +150,6 @@ namespace Pizzeria.Services
                         if (cartItem.Quantity != 0)
                         {
                             total += cartItem.Dish.Price * cartItem.Quantity;
-
                         }
                         else
                         {

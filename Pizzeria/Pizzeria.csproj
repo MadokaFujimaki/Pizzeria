@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-Pizzeria-12A15EBE-D29A-4491-BDFB-AC259581ECCD</UserSecretsId>
+    <Configurations>Debug;Release;LocalIIS</Configurations>
   </PropertyGroup>
 
 
