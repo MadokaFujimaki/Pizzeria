@@ -42,12 +42,5 @@ namespace Pizzeria.Services
             }
             _context.SaveChanges();
         }
-
-        public int AddIngTotalPrice(List<CartItemIngredient> cartItemIngredients)
-        {
-
-            return 0;
-        }
-
     }
 }

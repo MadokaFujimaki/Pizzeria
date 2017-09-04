@@ -5,14 +5,14 @@
 
 @{
     var cart = CartService.GetCart();
+    var ingTotalPrice = cart != null ? @CartService.AddIngTotalPrice(@CartService.GetCartItemIng(cart.CartId)) : 0;
 }
-
 
 @{
     <table style="width:100%">
         <tr style="background-color:lightgoldenrodyellow">
             <td style="width:70%"><h4>Total</h4></td>
-            <td style="width:20%"><h4>@CartService.CalculateTotal()  kr</h4></td>
+            <td style="width:20%"><h4>@CartService.CalculateTotal(ingTotalPrice)  kr</h4></td>
         </tr>
     </table>
     <br />
@@ -21,7 +21,7 @@
     {
         if (cart.CartItems != null)
         {
-            foreach (var item in cart.CartItems.OrderBy(x=>x.Dish.Name))
+            foreach (var item in cart.CartItems.OrderBy(x => x.Dish.Name))
             {
                     <table style="width:100%">
                         <tr style="background-color:lightgoldenrodyellow">
@@ -38,17 +38,15 @@
                                     <span class="glyphicon glyphicon-trash" title="Remove"></span>
                                 </button>
                             </td>
-                        </tr>
-                        <tr>
-                            <td style="width:100%">
-                                @item.CartItemIngredients
-                            </td>
-                        </tr>
+                        </tr>   
                     </table>
             }
-            <table>
+            <table style="margin-top:10px">
                 <tr>
-                    @*<td style="width:100%">x  @</td>*@
+                    <td style="width:80%">Additional ingredients</td>
+                    <td style="width:20%;">
+                      +  @ingTotalPrice kr
+                    </td>
                 </tr>
             </table>
         }

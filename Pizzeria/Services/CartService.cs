@@ -35,6 +35,8 @@ namespace Pizzeria.Services
                 var cartId = _session.GetInt32("CartId").Value;
                 _context.Dishes.Find(cartId).Item = _context.CartItems.Where(x => x.CartId == cartId).ToList();
                 var cart = _context.Carts.Where(x => x.CartId == 1).SingleOrDefault();
+
+                //cart.CartItems.Select(x => x.CartItemIngredients).ToList()
                 return cart;
             }
         }
@@ -135,9 +137,18 @@ namespace Pizzeria.Services
             //}
         }
 
-        public int CalculateTotal()
+        public int AddIngTotalPrice(List<Ingredient> cartItemIngredients)
         {
-            var total = 0;
+            if (cartItemIngredients != null)
+            {
+                return cartItemIngredients.Select(x => x.Price).Sum();
+            }
+            return 0;
+        }
+
+        public int CalculateTotal(int ingPrice)
+        {
+            var total = ingPrice;
             byte[] cartIdBytes = new byte[4];
             bool exist = _session.TryGetValue("CartId", out cartIdBytes);
             if (exist)
@@ -159,6 +170,11 @@ namespace Pizzeria.Services
                 }
             }
             return total;
+        }
+
+        public List<Ingredient> GetCartItemIng(int cartId)
+        {
+            return _context.CartItemIngredients.Where(x => x.CartItem.CartId == cartId).Select(x => x.Ingredient).ToList();
         }
     }
 }
