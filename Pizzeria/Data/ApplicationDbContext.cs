@@ -28,7 +28,7 @@ namespace Pizzeria.Data
 
             builder.Entity<CartItem>()
                .HasOne(di => di.Dish)
-               .WithMany(i => i.Item)
+               .WithMany(i => i.CartItems)
                .HasForeignKey(di => di.DishId);
 
 

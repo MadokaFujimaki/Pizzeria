@@ -20,7 +20,7 @@ namespace Pizzeria.Models
         public byte[] Image { get; set; }
         public int DishCategoryId { get; set; }
         public DishCategory DishCategory { get; set; }
-        public List<CartItem> Item { get; set; }
+        public List<CartItem> CartItems { get; set; }
 
 
     }

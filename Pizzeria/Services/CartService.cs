@@ -33,12 +33,17 @@ namespace Pizzeria.Services
             else
             {
                 var cartId = _session.GetInt32("CartId").Value;
-                _context.Dishes.Find(cartId).Item = _context.CartItems.Where(x => x.CartId == cartId).ToList();
-                var cart = _context.Carts.Where(x => x.CartId == 1).SingleOrDefault();
-
+                _context.Dishes.Find(cartId).CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList();               
+              var cart = _context.Carts.Where(x => x.CartId == cartId).SingleOrDefault();
                 //cart.CartItems.Select(x => x.CartItemIngredients).ToList()
                 return cart;
             }
+        }
+
+        public List<string> GetCartItemIngName(int cartItemId)
+        {
+            var names = _context.CartItemIngredients.Where(x => x.CartItemId == cartItemId).Select(x => x.Ingredient.Name).ToList();
+            return names;
         }
 
         //public IEnumerable<CartItem> GetCartItem()
@@ -106,7 +111,7 @@ namespace Pizzeria.Services
                             _context.Add(cartItem);
                         }
                     _context.SaveChanges();
-                    _context.Dishes.Find(cartId).Item = _context.CartItems.Where(x => x.CartId == cartId).ToList();
+                    _context.Dishes.Find(cartId).CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList();
                 }
             }
         }
