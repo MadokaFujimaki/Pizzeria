@@ -182,16 +182,32 @@ namespace Pizzeria.Controllers
         }
 
         [HttpPost]
-        public IActionResult Customize([Bind("CartItemId,Quantity,CartId,DishId")] CartItem cartItem, IFormCollection collection)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Customize([Bind("CartItemId,Quantity")] CartItem cartItem, IFormCollection collection)
         {
-            _ingredientService.RemoveIngredients(cartItem.DishId, cartItem.CartId);
+            if (!ModelState.IsValid)
+            {
+                TempData["message"] = "The quantity must be greater than 1.";
+                return RedirectToAction(nameof(Customize), cartItem.CartItemId);
+            }
+
+            _ingredientService.RemoveIngredients(cartItem.CartItemId);
             foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
             {
                 var listIngredient = _context.Ingredients.FirstOrDefault(d => d.IngredientId == Int32.Parse(item.Remove(0, 11)));
-                CartItemIngredient di = new CartItemIngredient() { DishId=cartItem.DishId, CartId = cartItem.CartId, Ingredient = listIngredient };
+                CartItemIngredient di = new CartItemIngredient() { CartItemId=cartItem.CartItemId, Ingredient = listIngredient };
                 _context.CartItemIngredients.Add(di);
                 _context.SaveChanges();
             }
+            //var quantity = 1;
+            //if (cartItem.Quantity < 0)
+            //{
+            //    quantity = 1;
+            //}
+            //else
+            //{
+            //    quantity = cartItem.Quantity;
+            //}
             var quantity = cartItem.Quantity;
             cartItem = _context.CartItems.Where(x => x.CartItemId == cartItem.CartItemId).FirstOrDefault();
             cartItem.Dish = _context.Dishes.FirstOrDefault(x => x.DishId == cartItem.DishId);

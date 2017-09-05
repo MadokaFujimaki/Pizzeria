@@ -21,9 +21,9 @@ namespace Pizzeria.Services
             return _context.Ingredients.ToList();
         }
 
-        public bool HasIngredient(int cartId, int dishId, int ingredientId)
+        public bool HasIngredient(int cartItemId, int ingredientId)
         {
-            foreach (var item in _context.CartItemIngredients.Where(x => x.CartId == cartId && x.DishId == dishId).Select(i => i.Ingredient))
+            foreach (var item in _context.CartItemIngredients.Where(x => x.CartItemId == cartItemId).Select(i => i.Ingredient))
             {
                 if (item.IngredientId == ingredientId)
                 {
@@ -33,9 +33,9 @@ namespace Pizzeria.Services
             return false;
         }
 
-        public void RemoveIngredients(int dishId, int cartId)
+        public void RemoveIngredients(int cartItemId)
         {
-            var cartItemIngs = _context.CartItemIngredients.Where(x => x.DishId == dishId && x.CartId == cartId);
+            var cartItemIngs = _context.CartItemIngredients.Where(x => x.CartItemId == cartItemId);
             foreach (var ing in cartItemIngs)
             {
                 _context.Remove(ing);

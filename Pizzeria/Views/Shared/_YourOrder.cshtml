@@ -6,6 +6,7 @@
 @{
     var cart = CartService.GetCart();
     var ingTotalPrice = cart != null ? @CartService.AddIngTotalPrice(@CartService.GetCartItemIng(cart.CartId)) : 0;
+    //var cartIng = cart != null ? cart.CartItems.Select(x => x.CartItemIngredients) : null;
 }
 
 @{
@@ -40,6 +41,21 @@
                             </td>
                         </tr>   
                     </table>
+
+                @*if (cartIng != null)
+                {
+                    <table>
+                        <tr>
+                            <td>
+                                @foreach (var cartItemIngredient in cart.CartItems.Select(x=>x.CartItemIngredients).ToList())
+                                {
+                                @cartItemIngredient.Select(x => x.Ingredient).FirstOrDefault().Name
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                }*@
+
             }
             <table style="margin-top:10px">
                 <tr>

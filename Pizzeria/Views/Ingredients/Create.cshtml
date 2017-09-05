@@ -1,5 +1,9 @@
 ﻿@model Pizzeria.Models.Ingredient
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
 @{
     ViewData["Title"] = "Create";
 }

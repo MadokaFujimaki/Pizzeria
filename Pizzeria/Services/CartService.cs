@@ -75,7 +75,7 @@ namespace Pizzeria.Services
                     _session.SetInt32("CartId", cart.CartId);
 
                     CartItem cartItem = new CartItem();
-                    cartItem.CartItemId = 0;
+                    //cartItem.CartItemId = 0;
                     cartItem.CartId = cart.CartId;
                     cartItem.Dish = _context.Dishes.Find(dishId);
                     cartItem.Quantity = 1;
@@ -86,17 +86,10 @@ namespace Pizzeria.Services
                 else
                 {
                     int cartId = _session.GetInt32("CartId").Value;
-                    var ci = _context.CartItems.FirstOrDefault(x => x.CartId == cartId && x.DishId == dishId);
-                    if (ci != null)
-                    {
-                        ci.Quantity += 1;
-                    }
-                    else
-                    {
                         if (_context.Carts.Where(x => x.CartId == cartId).Select(x => x.CartItems) != null)
                         {
                             CartItem cartItem = new CartItem();
-                            cartItem.CartItemId = _context.CartItems.OrderByDescending(x => x.CartItemId).Select(x => x.CartItemId).FirstOrDefault() + 1;
+                            //cartItem.CartItemId = _context.CartItems.OrderByDescending(x => x.CartItemId).Select(x => x.CartItemId).FirstOrDefault() + 1;
                             cartItem.CartId = cartId;
                             //cartItem.DishId = dishId;
                             cartItem.Dish = _context.Dishes.Find(dishId);
@@ -106,13 +99,12 @@ namespace Pizzeria.Services
                         else
                         {
                             CartItem cartItem = new CartItem();
-                            cartItem.CartItemId = 0;
+                            ////cartItem.CartItemId = 0;
                             cartItem.CartId = cartId;
                             cartItem.Dish = _context.Dishes.Find(dishId);
                             cartItem.Quantity = 1;
                             _context.Add(cartItem);
-                        }         
-                    }
+                        }
                     _context.SaveChanges();
                     _context.Dishes.Find(cartId).Item = _context.CartItems.Where(x => x.CartId == cartId).ToList();
                 }

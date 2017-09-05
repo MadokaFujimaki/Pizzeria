@@ -1,12 +1,14 @@
 ﻿@model Pizzeria.Models.CartItem
 @inject Pizzeria.Services.IngredientService _ingredients
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
             <h2>Customize</h2>
             <br />
 <form asp-action="Customize" >
     <input type="hidden" asp-for="CartItemId" />
-    <input type="hidden" asp-for="CartId" />
-    <input type="hidden" asp-for="DishId" />
     <table style="width:30%">
         <tr style="background-color:lightgoldenrodyellow">
             <td style="width:10%;padding-left:10px"><h4>Dish:</h4></td>
@@ -49,7 +51,7 @@
             {
                 if (!ingList.Contains(ingredient))
                 {
-                    string check = _ingredients.HasIngredient(Model.CartId, Model.DishId, ingredient.IngredientId) ? "checked" : "";
+                    string check = _ingredients.HasIngredient(Model.CartItemId, ingredient.IngredientId) ? "checked" : "";
                 <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" value="true" @check />
                             <p>@ingredient.Name    @ingredient.Price kr</p>
             }

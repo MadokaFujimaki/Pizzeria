@@ -20,8 +20,6 @@ namespace Pizzeria.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // DishId och IngredientId blir primary key (Många till Många)
-            builder.Entity<CartItem>()
-               .HasKey(di => new { di.CartId, di.DishId });
 
             builder.Entity<CartItem>()
                .HasOne(di => di.Cart)
@@ -32,6 +30,7 @@ namespace Pizzeria.Data
                .HasOne(di => di.Dish)
                .WithMany(i => i.Item)
                .HasForeignKey(di => di.DishId);
+
 
             builder.Entity<DishIngredient>()
                 .HasKey(di => new { di.DishId, di.IngredientId });
@@ -48,12 +47,9 @@ namespace Pizzeria.Data
 
 
             builder.Entity<CartItemIngredient>()
-               .HasKey(ci => new { ci.CartId, ci.IngredientId, ci.DishId});
-
-            builder.Entity<CartItemIngredient>()
                .HasOne(c => c.CartItem)
                .WithMany(d => d.CartItemIngredients)
-               .HasForeignKey(di => new { di.CartId, di.DishId });
+               .HasForeignKey(di => di.CartItemId);
 
             builder.Entity<CartItemIngredient>()
                .HasOne(di => di.Ingredient)
