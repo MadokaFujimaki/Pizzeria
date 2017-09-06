@@ -107,16 +107,16 @@ namespace Pizzeria.Controllers
             }
 
             user.CustomerName = model.CustomerName;
-            var setCustomerName = await _userManager.UpdateAsync(user);
+            var setCustomerNameResult = await _userManager.UpdateAsync(user);
 
             user.Street = model.Street;
-            var setStreet = await _userManager.UpdateAsync(user);
+            var setStreetResult = await _userManager.UpdateAsync(user);
 
             user.PostalCode = model.PostalCode;
-            var setPostalCode = await _userManager.UpdateAsync(user);
+            var setPostalCodeResult = await _userManager.UpdateAsync(user);
 
             user.City = model.City;
-            var setCity = await _userManager.UpdateAsync(user);
+            var setCityResult = await _userManager.UpdateAsync(user);
 
 
 

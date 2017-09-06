@@ -1,6 +1,6 @@
 ﻿@inject Pizzeria.Services.CartService CartService
 
-<h2>Your Order</h2>
+<h2>YOUR ORDER</h2>
 <br />
 
 @{
@@ -10,10 +10,29 @@
 
 @{
     <table style="width:100%">
-        <tr style="background-color:lightgoldenrodyellow">
-            <td style="width:70%"><h4>Total</h4></td>
-            <td style="width:20%"><h4>@CartService.CalculateTotal(ingTotalPrice)  kr</h4></td>
+        <tr style="border:double">
+            <td style="width:60%;padding-left:5px"><h4>Total</h4></td>
+            <td style="width:30%"><h4>@CartService.CalculateTotal(ingTotalPrice)  kr</h4></td>
+            <td style="width:10%;padding-right:5px">
+                @if (cart != null)
+                {
+                    @if (cart.CartItems == null || !cart.CartItems.Any())
+                    {
+                        <input type="submit" class="pay" disabled value="Pay" style="border:double;background:none;">
+                    }
+                    else
+                    {
+                        <input type="submit" class="pay" value="Pay" name="pay-@cart.CartId" style="border:double;background:none;">
+                    }
+                }
+                else
+                {
+                    <input type="submit" class="pay" disabled value="Pay" style="border:double;background:none;" >
+                }
+
+            </td>
         </tr>
+
     </table>
     <br />
 
@@ -24,17 +43,17 @@
             foreach (var item in cart.CartItems.OrderBy(x => x.Dish.Name))
             {
                 <table style="width:100%">
-                    <tr style="background-color:lightgoldenrodyellow">
-                        <td style="width:30%">@item.Dish.Name</td>
-                        <td style="width:20%"> @item.Dish.Price  kr</td>
-                        <td style="width:10%">x  @item.Quantity</td>
-                        <td style="width:5%">
-                            <button type="submit" class="customize" name="customize-@item.CartItemId">
+                    <tr style="border-top:double;">
+                        <td style="width:30%;padding-left:5px;padding-top:5px;">@item.Dish.Name</td>
+                        <td style="width:20%;padding-top:5px;"> @item.Dish.Price  kr</td>
+                        <td style="width:10%;padding-top:5px;">x  @item.Quantity</td>
+                        <td style="width:5%;padding-top:5px;">
+                            <button type="submit" class="customize" name="customize-@item.CartItemId" style="background:none; border:none;">
                                 <span class="glyphicon glyphicon-cog" title="Customize"></span>
                             </button>
                         </td>
-                        <td style="width:5%">
-                            <button type="submit" class="remove" name="remove-@item.CartItemId">
+                        <td style="width:5%;padding-top:5px;">
+                            <button type="submit" class="remove" name="remove-@item.CartItemId" style="background:none; border:none;">
                                 <span class="glyphicon glyphicon-trash" title="Remove"></span>
                             </button>
                         </td>
@@ -45,16 +64,15 @@
                 {*@
                     <table style="width:100%">
                         <tr >
-                            <td>                        
+                            <td style="padding-left:5px">                        
                                     <h6>@string.Join(",  ", @CartService.GetCartItemIngName(item.CartItemId))</h6>                                    
                             </td>
                         </tr>
                     </table>
                 //}
             }
-
-            <table style="margin-top:10px">
-                <tr>
+            <table style="margin-top:10px;width:100%">
+                    <tr style="border-top:double">
                     <td style="width:80%">Additional ingredients</td>
                     <td style="width:20%;">
                         +  @ingTotalPrice kr
@@ -62,19 +80,19 @@
                 </tr>
             </table>
         }
+
+            @*<table style="width:100%">
+                <tr>
+                    <td style="width:70%"></td>
+                    <td style="width:20%">
+                        <button type="submit" class="pay" name="pay-@cart.CartId">
+                            Pay
+                        </button>
+                    </td>
+                </tr>
+            </table>*@
     }
-    <br />
-    <table style="width:100%">
-        <tr>
-            <td style="width:70%"></td>
-            <td style="width:20%">
-                <button type="submit" class="pay" name="">
-                    Submit
-                </button>
-            </td>
-        </tr>
-    </table>
-    <br />
+
 }
 
 
@@ -90,8 +108,6 @@
     </h1>
           }
       }*@
-
-
 
 
 @*<ul>

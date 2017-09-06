@@ -67,7 +67,9 @@ namespace Pizzeria.Controllers
                     _cartService.DeleteDish(id);
                     break;
                 case "customize":
-                    return RedirectToAction("Customize", "CartItems", new { cartItemId = id });                   
+                    return RedirectToAction("Customize", "CartItems", new { cartItemId = id });
+                case "pay":
+                    return RedirectToAction("Index", "Payments", new { cartId = id });
             }
             return RedirectToAction("Index");
         }

@@ -9,26 +9,27 @@
             <br />
 <form asp-action="Customize" >
     <input type="hidden" asp-for="CartItemId" />
-    <table style="width:30%">
-        <tr style="background-color:lightgoldenrodyellow">
+    <table style="width:30%;border:double">
+        @*<tr style="background-color:lightgoldenrodyellow">*@
+        <tr>
             <td style="width:10%;padding-left:10px"><h4>Dish:</h4></td>
             <td style="width:1%"></td>
-            <td style="width:19%;padding-right:10px"><h4 >@Model.Dish.Name</h4></td>
+            <td style="width:19%;padding-right:10px"><h4>@Model.Dish.Name</h4></td>
         </tr>
-        <tr style="background-color:lightgoldenrodyellow">
+        <tr >
             <td style="width:10%;padding-left:10px"><h4>Price:</h4></td>
             <td style="width:1%"></td>
             <td style="width:19%;padding-right:10px"><h4 >@Model.Dish.Price  kr</h4></td>
         </tr>
-        <tr style="background-color:lightgoldenrodyellow">
+        <tr>
             <td style="width:10%;padding-left:10px"><h4>Quantity:</h4></td>
             <td style="width:1%"></td>
             <td style="width:19%;padding-right:10px">
-                <input asp-for="Quantity" class="form-control" />
+                <input asp-for="Quantity" class="form-control" style="border:double;background:none"/>
                 <span asp-validation-for="Quantity"  class="text-danger"></span>
             </td>
         </tr>
-        <tr style="background-color:lightgoldenrodyellow">
+        <tr >
             <td style="width:10%;padding-left:10px"><h4>Ingredients:</h4></td>
             <td style="width:1%"></td>
             <td style="width:19%;padding-right:10px">
@@ -37,9 +38,8 @@
                 </h5>
             </td>
         </tr>
-        <tr><td><h1></h1></td></tr>
     </table>
-
+    <br />
     <h4>Additional ingredients</h4>
     <div style="margin-top:20px; margin-left:20px" class="form-group checkbox">
         @{     var ingList = new List<Ingredient>();
@@ -52,13 +52,14 @@
                 if (!ingList.Contains(ingredient))
                 {
                     string check = _ingredients.HasIngredient(Model.CartItemId, ingredient.IngredientId) ? "checked" : "";
-                <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" value="true" @check />
+                <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" value="true" @check  />
                             <p>@ingredient.Name    @ingredient.Price kr</p>
             }
             }
         }
     </div>
-    <input type="submit" value="Save" class="btn btn-default" />
+    <br />
+    <input type="submit" value="Save" class="btn btn-default" style="border:double;"/>
     @*<button style="margin-top:10px" type="submit" name="">
    OK
     </button>*@
