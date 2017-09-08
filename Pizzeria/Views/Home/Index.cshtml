@@ -8,13 +8,13 @@
 
 <form asp-controller="Home" asp-action="AlacarteAction" method="post">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h2>A LA CARTE</h2>
             @{
                 Html.RenderPartial("_Alacarte", Model);
                 }
         </div>
-        <div class="col-md-1"></div>
+        @*<div class="col-md-1"></div>*@
         <div class="col-md-3">
             @{ 
                 Html.RenderPartial("_YourOrder");

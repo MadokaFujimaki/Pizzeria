@@ -20,6 +20,11 @@ namespace Pizzeria.Data
             var adminUser = new ApplicationUser();
             adminUser.UserName = "admin@test.com";
             adminUser.Email = "admin@test.com";
+            adminUser.CustomerName = "Madoka";
+            adminUser.Street = "Kungsgatan 123";
+            adminUser.PostalCode = "12345";
+            adminUser.City = "Stockholm";
+
             var adminUserResult = userManager.CreateAsync(adminUser, "Pa$$w0rd").Result;
 
             var adminRole = new IdentityRole { Name = "Admin"};
@@ -115,6 +120,11 @@ namespace Pizzeria.Data
                 context.Dishes.Add(calzoneSp);
                 context.Dishes.Add(applePie);
 
+                var visa = new Card { Name = "Visa" };
+                var masterCard = new Card { Name = "Master card" };
+
+                context.Cards.Add(visa);
+                context.Cards.Add(masterCard);
 
                 //context.AddRange(capricciosa, margaritha, hawaii);
                 context.SaveChanges();

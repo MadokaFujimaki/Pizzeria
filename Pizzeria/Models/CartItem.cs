@@ -15,7 +15,7 @@ namespace Pizzeria.Models
         public Dish Dish { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "The quantity must be greater than 1")]
         //[Range(1, 100)]
-        public int Quantity { get; set; }
+        public int Quantity { get; set; } = 0;
         public List<CartItemIngredient> CartItemIngredients { get; set; }
     }
 }

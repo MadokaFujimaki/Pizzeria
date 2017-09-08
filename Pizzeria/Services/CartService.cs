@@ -14,6 +14,7 @@ namespace Pizzeria.Services
         private readonly ApplicationDbContext _context;
         private readonly IServiceProvider _services;
         private readonly ISession _session;
+   
 
         public CartService(ApplicationDbContext context, IServiceProvider services)
         {
@@ -153,15 +154,17 @@ namespace Pizzeria.Services
                 int cartId = _session.GetInt32("CartId").Value;
                 if (_context.Carts.FirstOrDefault(x => x.CartId == cartId).CartItems != null)
                 {
-                    foreach (var cartItem in _context.Carts.FirstOrDefault(x => x.CartId == cartId).CartItems)
+                    var cartItems = _context.CartItems.Where(x => x.CartId == cartId);
+                    foreach (var cartItem in cartItems)
                     {
+                        cartItem.Dish = _context.Dishes.Where(x => x.DishId == cartItem.DishId).FirstOrDefault();
                         if (cartItem.Quantity != 0)
                         {
-                            total += cartItem.Dish.Price * cartItem.Quantity;
+                            total = total + cartItem.Dish.Price * cartItem.Quantity;
                         }
                         else
                         {
-                            total += cartItem.Dish.Price;
+                            total = total + cartItem.Dish.Price;
                         }
                     }
                 }

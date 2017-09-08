@@ -157,7 +157,7 @@ namespace Pizzeria.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "DishCategoryId", dish.DishCategoryId);
+            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "Discription", dish.DishCategoryId);
             return View(dish);
         }
 

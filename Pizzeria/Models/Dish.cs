@@ -19,6 +19,7 @@ namespace Pizzeria.Models
         [ScaffoldColumn(false)]
         public byte[] Image { get; set; }
         public int DishCategoryId { get; set; }
+        [Display(Name = "Category")]
         public DishCategory DishCategory { get; set; }
         public List<CartItem> CartItems { get; set; }
 
