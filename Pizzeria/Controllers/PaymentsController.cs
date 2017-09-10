@@ -71,64 +71,67 @@ namespace Pizzeria.Controllers
                 };
                 return View(model);
             }
-
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(PaymentViewModel model)
         {
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "Name");
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
+
             if (!ModelState.IsValid)
             {
-                return View(model);
-            }
-
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                //throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-            else
-            {
-                var phoneNumber = user.PhoneNumber;
-                if (model.PhoneNumber != phoneNumber)
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
                 {
-                    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                    if (!setPhoneResult.Succeeded)
-                    {
-                        throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
-                    }
+                    user = new ApplicationUser();
+                    user.CustomerName = model.CustomerName;
+                    user.PhoneNumber= model.CustomerName;
+                    user.Street = model.Street;
+                    user.PostalCode = model.PostalCode;
+                    user.City = model.City;
+                    user.CreditCardNumber = model.CreditCardNumber;
+                    user.NameOnCard = model.NameOnCard;
+                    user.YYMM = model.YYMM;
+                    user.CCV = model.CCV;
+                    user.Card = model.Card;
+                    //throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
-                user.CustomerName = model.CustomerName;
-                var setCustomerNameResult = await _userManager.UpdateAsync(user);
+                else
+                {
+                    var phoneNumber = user.PhoneNumber;
+                    if (model.PhoneNumber != phoneNumber)
+                    {
+                        var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
+                        if (!setPhoneResult.Succeeded)
+                        {
+                            throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
+                        }
+                    }
+                    user.CustomerName = model.CustomerName;
+                    var setCustomerNameResult = await _userManager.UpdateAsync(user);
 
-                user.Street = model.Street;
-                var setStreetResult = await _userManager.UpdateAsync(user);
+                    user.Street = model.Street;
+                    var setStreetResult = await _userManager.UpdateAsync(user);
 
-                user.PostalCode = model.PostalCode;
-                var setPostalCodeResult = await _userManager.UpdateAsync(user);
+                    user.PostalCode = model.PostalCode;
+                    var setPostalCodeResult = await _userManager.UpdateAsync(user);
 
-                user.City = model.City;
-                var setCityResult = await _userManager.UpdateAsync(user);
+                    user.City = model.City;
+                    var setCityResult = await _userManager.UpdateAsync(user);
 
-
-                ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "Name");
-
-                user.CreditCardNumber = model.CreditCardNumber;
-                var setCreditCardNumberResult = await _userManager.UpdateAsync(user);
-
-                user.NameOnCard = model.NameOnCard;
-                var setNameOnCardResult = await _userManager.UpdateAsync(user);
-
-                user.YYMM = model.YYMM;
-                var setYYMMResult = await _userManager.UpdateAsync(user);
-
-                user.CCV = model.CCV;
-                var setCCVResult = await _userManager.UpdateAsync(user);
-
-                StatusMessage = "Your profile has been updated";
-      
+                    user.CreditCardNumber = model.CreditCardNumber;
+                    user.NameOnCard = model.NameOnCard;
+                    user.YYMM = model.YYMM;
+                    user.CCV = model.CCV;
+                    user.Card = model.Card;
+                }
             }
+            //StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
         }
     }

@@ -16,14 +16,26 @@ namespace Pizzeria.Models.ManageViewModels
         [EmailAddress]
         public string Email { get; set; }
 
+        [Required]
         [Phone]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
 
         public string StatusMessage { get; set; }
+
+        [Required]
+        [Display(Name = "Customer name")]
         public string CustomerName { get; set; }
+
+        [Required]
         public string Street { get; set; }
+
+        [Required]
+        [Display(Name = "Postal code")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "The field Postal code must be numeric")]
         public string PostalCode { get; set; }
+
+        [Required]
         public string City { get; set; }
     }
 }

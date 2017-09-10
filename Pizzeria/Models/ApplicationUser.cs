@@ -16,10 +16,10 @@ namespace Pizzeria.Models
 
         public int CardId { get; set; }
         public Card Card { get; set; }
-        public int CreditCardNumber { get; set; }
+        public string CreditCardNumber { get; set; }
         public string NameOnCard { get; set; }
-        public int YYMM { get; set; }
-        public int CCV { get; set; }
+        public string YYMM { get; set; }
+        public string CCV { get; set; }
         
     }
 }
