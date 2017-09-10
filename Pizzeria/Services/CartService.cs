@@ -137,8 +137,13 @@ namespace Pizzeria.Services
 
         public int AddIngTotalPrice(List<Ingredient> cartItemIngredients)
         {
+            //int total = 0;
             if (cartItemIngredients != null)
             {
+                //foreach (var cartItemIng in cartItemIngredients)
+                //{
+                //    total = cartItemIngredients.Select(x => x.Price)* 
+                //}
                 return cartItemIngredients.Select(x => x.Price).Sum();
             }
             return 0;
@@ -174,7 +179,20 @@ namespace Pizzeria.Services
 
         public List<Ingredient> GetCartItemIng(int cartId)
         {
-            return _context.CartItemIngredients.Where(x => x.CartItem.CartId == cartId).Select(x => x.Ingredient).ToList();
+            var cartItemIngs = new List<Ingredient>();
+            //return _context.CartItemIngredients.Where(x => x.CartItem.CartId == cartId).Select(x => x.Ingredient).ToList();'
+            var cartItems = _context.CartItems.Where(x => x.CartId == cartId);
+            foreach (var cartItem in cartItems)
+            {
+                for (int i = 0; i < cartItem.Quantity; i++)
+                {
+                    foreach (var cartItemIngredient in cartItem.CartItemIngredients = _context.CartItemIngredients.Where(x => x.CartItem.CartItemId == cartItem.CartItemId).ToList())
+                    {
+                        cartItemIngs.Add(_context.Ingredients.Where(x=> x.IngredientId == cartItemIngredient.IngredientId).FirstOrDefault());
+                    }
+                }
+            }
+            return cartItemIngs;
         }
     }
 }
