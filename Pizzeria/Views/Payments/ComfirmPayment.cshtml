@@ -8,36 +8,84 @@
 @{
     var cart = CartService.GetCart();
     var ingTotalPrice = @CartService.AddIngTotalPrice(@CartService.GetCartItemIng(cart.CartId));
-        }
+}
 
-        <form asp-controller="Payments" asp-action="Pay" 
-              asp-route-customerName="@Model.CustomerName"
-               asp-route-phoneNumber="@Model.PhoneNumber" 
-              asp-route-emailAddress="@Model.Email" 
-              asp-route-street="@Model.Street" 
-              asp-route-postalCode="@Model.PostalCode" 
-              asp-route-city="@Model.City" 
-              asp-route-cardId="@Model.CardId" 
-              asp-route-creditCardNumber="@Model.CreditCardNumber" 
-              asp-route-nameOnCard="@Model.NameOnCard" 
-              asp-route-yymm="@Model.YYMM" 
-              asp-route-ccv="@Model.CCV" 
-             method="post">
+<form asp-action="Receipt" asp-route-cartId="@cart.CartId">
+    <input type="hidden" asp-for="CustomerName" />
+    <input type="hidden" asp-for="PhoneNumber" />
+    <input type="hidden" asp-for="Email" />
+    <input type="hidden" asp-for="Street" />
+    <input type="hidden" asp-for="PostalCode" />
+    <input type="hidden" asp-for="City" />
+    <input type="hidden" asp-for="CardId" />
+    <input type="hidden" asp-for="CreditCardNumber" />
+    <input type="hidden" asp-for="NameOnCard" />
+    <input type="hidden" asp-for="YYMM" />
+    <input type="hidden" asp-for="CCV" />
+      @*asp-route-customerName="@Model.CustomerName"
+      asp-route-phoneNumber="@Model.PhoneNumber"
+      asp-route-emailAddress="@Model.Email"
+      asp-route-street="@Model.Street"
+      asp-route-postalCode="@Model.PostalCode"
+      asp-route-city="@Model.City"
+      asp-route-cardId="@Model.CardId"
+      asp-route-creditCardNumber="@Model.CreditCardNumber"
+      asp-route-nameOnCard="@Model.NameOnCard"
+      asp-route-yymm="@Model.YYMM"
+      asp-route-ccv="@Model.CCV"
+      method="post">*@
 
-    <h2>Comfirm Payment</h2>
+    <h2>Comfirm payment</h2>
     <br />
     <div class="row">
         <div class="col-md-6">
-            @{
-                <table style="width:100%">
-                    <tr style="border:double">
-                        <td style="width:60%;padding-left:5px"><h4>Total Amount</h4></td>
-                        <td style="width:30%;float:right"><h4>@CartService.CalculateTotal(ingTotalPrice)  kr</h4></td>
+
+            <table style="width:100%;border:double">
+                <tr>
+                    <td style="width:30%;padding-left:5px"><h4>Total amount</h4></td>
+                    <td></td>
+                    <td></td>
+                    <td ><h4>@CartService.CalculateTotal(ingTotalPrice)  kr</h4></td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="padding-left:5px"><h6 style="padding-top:0;margin-top:0">Additional ingredients</h6></td>
+                    <td></td>
+                    <td></td>
+                    <td><h6 style="padding-top:0;margin-top:0">(@ingTotalPrice kr)</h6></td>
+                </tr>
+
+                @foreach (var cartItem in cart.CartItems)
+                {                 
+                    <tr>
+                        <td style="width:70%;padding-left:5px">@cartItem.Dish.Name</td>
+                        <td></td>
+                        <td style="width:20%">@cartItem.Dish.Price  kr</td>
+                        <td style="width:10%">x @cartItem.Quantity</td>
                     </tr>
-                </table>
-            }
+                            @if (cartItem.CartItemIngredients.Any())
+                            {
+                                <tr style="border-bottom:solid;border-width:thin">
+                                    <td style="width:70%;padding-left:5px;">
+                                        <h6 style="padding-top:0;padding-bottom:5px;margin:0">( + @string.Join(",  ", @CartService.GetCartItemIngName(cartItem.CartItemId)))</h6>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr style="border-bottom:solid;border-width:thin">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }}
+            </table>
+
             <br />
-            <h4 style="text-decoration-line:underline">Delivery Address</h4>
+            <h4 style="text-decoration-line:underline">Delivery address</h4>
             <table style="width:100%">
                 <tr style="border-bottom:double">
                     <td style="width:50%">Customer name:</td>
@@ -65,7 +113,7 @@
                 </tr>
             </table>
             <br />
-            <h4 style="text-decoration-line:underline">Your Payment Method</h4>
+            <h4 style="text-decoration-line:underline">Your payment method</h4>
             <table style="width:100%">
                 <tr style="border-bottom:double">
                     <td style="width:50%">Card:</td>

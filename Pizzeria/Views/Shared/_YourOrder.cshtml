@@ -32,7 +32,12 @@
 
             </td>
         </tr>
-
+    </table>
+    <table style="margin-top:10px;width:100%">
+        <tr>
+            <td style="width:80%;padding-left:5px"><h5 style="padding-top:0;padding-bottom:5px;margin:0">Additional ingredients</h5></td>
+            <td style="width:20%"><h5 style="padding-top:0;padding-bottom:5px;margin:0">(@ingTotalPrice kr)</h5> </td>
+        </tr>
     </table>
     <br />
 
@@ -43,7 +48,7 @@
             foreach (var item in cart.CartItems.OrderBy(x => x.Dish.Name))
             {
                 <table style="width:100%">
-                    <tr style="border-top:double;">
+                    <tr style="border-top:solid;border-width:thin" >
                         <td style="width:30%;padding-left:5px;padding-top:5px;">@item.Dish.Name</td>
                         <td style="width:20%;padding-top:5px;"> @item.Dish.Price  kr</td>
                         <td style="width:10%;padding-top:5px;">x  @item.Quantity</td>
@@ -60,25 +65,25 @@
                     </tr>
                 </table>
 
-                @*@if (@CartService.GetCartItemIngName(item.CartItemId) != null)
-                {*@
+                @if (item.CartItemIngredients.Any())
+                    {
                     <table style="width:100%">
                         <tr >
                             <td style="padding-left:5px">                        
-                                    <h6>@string.Join(",  ", @CartService.GetCartItemIngName(item.CartItemId))</h6>                                    
+                                    <h6  style="padding-top:0;padding-bottom:5px;margin:0">( + @string.Join(",  ", @CartService.GetCartItemIngName(item.CartItemId)))</h6>                                    
                             </td>
                         </tr>
                     </table>
-                //}
-            }
-            <table style="margin-top:10px;width:100%">
+                    }
+                }
+            @*<table style="margin-top:10px;width:100%">
                     <tr style="border-top:double">
                     <td style="width:80%">Additional ingredients</td>
                     <td style="width:20%;">
                         +  @ingTotalPrice kr
                     </td>
                 </tr>
-            </table>
+            </table>*@
         }
 
             @*<table style="width:100%">

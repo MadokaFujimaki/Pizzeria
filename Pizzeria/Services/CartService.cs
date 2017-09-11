@@ -194,5 +194,13 @@ namespace Pizzeria.Services
             }
             return cartItemIngs;
         }
+
+        public void RemoveCart(int cartId)
+        {
+            var cart = _context.Carts.Where(x => x.CartId == cartId).FirstOrDefault();
+            _context.Remove(cart);
+            _context.SaveChanges();
+            _session.Remove("CartId");
+        }
     }
 }
