@@ -8,16 +8,21 @@ namespace Pizzeria.Models.ManageViewModels
 {
     public class PaymentViewModel
     {
-        [Required]
-        [Phone]
-        [Display(Name = "Phone number")]
-        public string PhoneNumber { get; set; }
-
         public string StatusMessage { get; set; }
 
         [Required]
         [Display(Name = "Customer name")]
         public string CustomerName { get; set; }
+
+        [Required]
+        [Phone]
+        [Display(Name = "Phone number")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email address")]
+        public string Email { get; set; }
 
         [Required]
         public string Street { get; set; }

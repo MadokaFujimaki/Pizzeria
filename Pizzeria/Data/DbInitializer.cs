@@ -20,6 +20,7 @@ namespace Pizzeria.Data
             var adminUser = new ApplicationUser();
             adminUser.UserName = "admin@test.com";
             adminUser.Email = "admin@test.com";
+            adminUser.PhoneNumber = "0701111222";
             adminUser.CustomerName = "Madoka";
             adminUser.Street = "Kungsgatan 123";
             adminUser.PostalCode = "12345";

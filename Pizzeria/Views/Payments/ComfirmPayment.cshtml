@@ -1,0 +1,99 @@
+﻿@model PaymentViewModel
+@inject Pizzeria.Services.CartService CartService
+
+@{
+    ViewData["Title"] = "ComfirmPayment";
+}
+
+@{
+    var cart = CartService.GetCart();
+    var ingTotalPrice = @CartService.AddIngTotalPrice(@CartService.GetCartItemIng(cart.CartId));
+        }
+
+        <form asp-controller="Payments" asp-action="Pay" 
+              asp-route-customerName="@Model.CustomerName"
+               asp-route-phoneNumber="@Model.PhoneNumber" 
+              asp-route-emailAddress="@Model.Email" 
+              asp-route-street="@Model.Street" 
+              asp-route-postalCode="@Model.PostalCode" 
+              asp-route-city="@Model.City" 
+              asp-route-cardId="@Model.CardId" 
+              asp-route-creditCardNumber="@Model.CreditCardNumber" 
+              asp-route-nameOnCard="@Model.NameOnCard" 
+              asp-route-yymm="@Model.YYMM" 
+              asp-route-ccv="@Model.CCV" 
+             method="post">
+
+    <h2>Comfirm Payment</h2>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            @{
+                <table style="width:100%">
+                    <tr style="border:double">
+                        <td style="width:60%;padding-left:5px"><h4>Total Amount</h4></td>
+                        <td style="width:30%;float:right"><h4>@CartService.CalculateTotal(ingTotalPrice)  kr</h4></td>
+                    </tr>
+                </table>
+            }
+            <br />
+            <h4 style="text-decoration-line:underline">Delivery Address</h4>
+            <table style="width:100%">
+                <tr style="border-bottom:double">
+                    <td style="width:50%">Customer name:</td>
+                    <td style="width:50%">@Model.CustomerName</td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="width:50%">Phone number:</td>
+                    <td style="width:50%">@Model.PhoneNumber</td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="width:50%">Email address:</td>
+                    <td style="width:50%">@Model.Email</td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="width:50%">Street:</td>
+                    <td style="width:50%">@Model.Street</td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="width:50%">Postal code:</td>
+                    <td style="width:50%">@Model.PostalCode</td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="width:50%">City:</td>
+                    <td style="width:50%">@Model.City</td>
+                </tr>
+            </table>
+            <br />
+            <h4 style="text-decoration-line:underline">Your Payment Method</h4>
+            <table style="width:100%">
+                <tr style="border-bottom:double">
+                    <td style="width:50%">Card:</td>
+                    <td style="width:50%">@Model.Card.Name</td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="width:50%">Credit card number:</td>
+                    <td style="width:50%">@Model.CreditCardNumber</td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="width:50%">Name on card:</td>
+                    <td style="width:50%">@Model.NameOnCard</td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="width:50%">YYMM:</td>
+                    <td style="width:50%">@Model.YYMM</td>
+                </tr>
+                <tr style="border-bottom:double">
+                    <td style="width:50%">CCV:</td>
+                    <td style="width:50%">@Model.CCV</td>
+                </tr>
+            </table>
+            <br />
+            <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
+            <br />
+            <br />
+            <button type="submit" class="btn btn-default" style="border:double;">Pay</button>
+            @*<button type="submit" class="btn btn-default" name="pay-@cart.CartId" style="border:double;">Pay</button>*@
+        </div>
+    </div>
+</form>
