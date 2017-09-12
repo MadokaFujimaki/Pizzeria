@@ -57,18 +57,18 @@ namespace Pizzeria.Data
                .HasForeignKey(di => di.IngredientId);
 
 
-            builder.Entity<OrderDish>()
-                .HasKey(od => new { od.OrderId, od.DishId });
+            //builder.Entity<OrderDish>()
+            //    .HasKey(od => new { od.OrderId, od.DishId });
 
-            builder.Entity<OrderDish>()
-                .HasOne(od => od.Order)
-                .WithMany(o => o.OrderDishes)
-                .HasForeignKey(od => od.OrderId);
+            //builder.Entity<OrderDish>()
+            //    .HasOne(od => od.Order)
+            //    .WithMany(o => o.OrderDishes)
+            //    .HasForeignKey(od => od.OrderId);
 
-            builder.Entity<OrderDish>()
-                .HasOne(od => od.Dish)
-                .WithMany(d => d.OrderDishes)
-                .HasForeignKey(od => od.DishId);
+            //builder.Entity<OrderDish>()
+            //    .HasOne(od => od.Dish)
+            //    .WithMany(d => d.OrderDishes)
+            //    .HasForeignKey(od => od.DishId);
 
 
 
@@ -88,6 +88,6 @@ namespace Pizzeria.Data
         public DbSet<Card> Cards { get; set; }
 
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDish> OrderDishes { get; set; }
+        //public DbSet<OrderDish> OrderDishes { get; set; }
     }
 }

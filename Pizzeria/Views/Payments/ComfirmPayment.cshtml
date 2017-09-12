@@ -35,7 +35,7 @@
       asp-route-ccv="@Model.CCV"
       method="post">*@
 
-    <h2>Comfirm payment</h2>
+    <h2>COMFIRM PAYMENT</h2>
     <br />
     <div class="row">
         <div class="col-md-6">
@@ -66,11 +66,11 @@
                             {
                                 <tr style="border-bottom:solid;border-width:thin">
                                     <td style="width:70%;padding-left:5px;">
-                                        <h6 style="padding-top:0;padding-bottom:5px;margin:0">( + @string.Join(",  ", @CartService.GetCartItemIngName(cartItem.CartItemId)))</h6>
+                                        <h6 style="padding-top:0;padding-bottom:5px;margin:0">+ @string.Join(",  ", @CartService.GetCartItemIngName(cartItem.CartItemId))</h6>
                                     </td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                    <td><h6 style="padding-top:0;padding-bottom:5px;margin:0">+ @CartService.AddIngPrice(cartItem.CartItemIngredients.Select(x => x.Ingredient).ToList(), cartItem.Quantity) kr</h6></td>       
                                 </tr>
                             }
                             else

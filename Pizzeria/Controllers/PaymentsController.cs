@@ -115,17 +115,10 @@ namespace Pizzeria.Controllers
                     }
                 }
                 user.CustomerName = model.CustomerName;
-                //var setCustomerNameResult = await _userManager.UpdateAsync(user);
-
                 user.Email = model.Email;
                 user.Street = model.Street;
-                //var setStreetResult = await _userManager.UpdateAsync(user);
-
                 user.PostalCode = model.PostalCode;
-                //var setPostalCodeResult = await _userManager.UpdateAsync(user);
-
                 user.City = model.City;
-                //var setCityResult = await _userManager.UpdateAsync(user);
 
                 user.CreditCardNumber = model.CreditCardNumber;
                 user.NameOnCard = model.NameOnCard;
@@ -144,53 +137,12 @@ namespace Pizzeria.Controllers
             return View(User);
         }
 
-        //public IActionResult Receipt(IFormCollection Form,
-        //    string customerName,string emailAddress, string phoneNumber, string street, string postalCode, string city,
-        //    int cardId, string creditCardNumber, string nameOnCard, string yymm, string ccv)
-        //{
-
         [HttpPost]
         public IActionResult Receipt(int cartId, [Bind("CustomerName,PhoneNumber,Email,Street,PostalCode,City,CreditCardNumber,NameOnCard,YYMM,CCV,CardId")] PaymentViewModel user)
         {
-            //var user = new ApplicationUser();
-            //user.CustomerName = customerName;
-            //user.PhoneNumber = phoneNumber;
-            //user.Email = emailAddress;
-            //user.Street = street;
-            //user.PostalCode = postalCode;
-            //user.City = city;
-            //user.CreditCardNumber = creditCardNumber;
-            //user.NameOnCard = nameOnCard;
-            //user.YYMM = yymm;
-            //user.CCV = ccv;
-            //user.CardId = cardId;
-
-            //var cart = _context.Carts.Where(x => x.CartId == cartId).FirstOrDefault();
-            //_context.Remove(cart);
-            //_context.SaveChanges();
-
             _logger.LogCritical($"To: {user.Email}, Subject: Confirmation of payment, Message: Thank you for your order!");
 
             return View(user);
-
-            //var key = Form.Keys.FirstOrDefault(k => k.Contains("-"));
-            //    var dashPos = key.IndexOf("-");
-            //    var action = key.Substring(0, dashPos);
-            //    var id = int.Parse(key.Substring(dashPos + 1));
-            //switch (action)
-            //{
-            //    case "back":
-            //        return RedirectToAction("Index");
-            //        break;
-            //case "remove":
-            //    _cartService.DeleteDish(id);
-            //    break;
-            //case "customize":
-            //    return RedirectToAction("Customize", "CartItems", new { cartItemId = id });
-            //    case "pay":
-            //        return RedirectToAction("Index", "Payments", new { cartId = id });
-            //}
-            //return RedirectToAction("Index");
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Pizzeria.Models
         [Range(1, int.MaxValue, ErrorMessage = "The price must be greater than 1")]
         public int Price { get; set; }
         public List<DishIngredient> DishIngredients { get; set; }
-        public List<OrderDish> OrderDishes { get; set; }
+        //public List<OrderDish> OrderDishes { get; set; }
         [ScaffoldColumn(false)]
         public byte[] Image { get; set; }
         public int DishCategoryId { get; set; }

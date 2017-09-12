@@ -24,6 +24,7 @@ namespace PizzeriaXUnitTests
             services.AddDbContext<ApplicationDbContext>(b =>
                 b.UseInMemoryDatabase("Pizzadatabase")
                 .UseInternalServiceProvider(efServiceProvider));
+
             services.AddTransient<CartService>();
             //services.AddTransient<CategoryService>();
             services.AddTransient<DishService>();
