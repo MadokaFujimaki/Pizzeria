@@ -37,7 +37,6 @@ namespace Pizzeria.Controllers
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder,
             CartService cartService)
-
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -45,6 +44,7 @@ namespace Pizzeria.Controllers
             _urlEncoder = urlEncoder;
             _cartService = cartService;
             _context = context;
+            _emailSender = emailSender;
         }
 
         public string StatusMessage { get; set; }
@@ -64,11 +64,11 @@ namespace Pizzeria.Controllers
             {
                 model = new PaymentViewModel
                 {
-                    
+
                     PhoneNumber = user.PhoneNumber,
                     //StatusMessage = StatusMessage,
                     CustomerName = user.CustomerName,
-                    Email= user.Email,
+                    Email = user.Email,
                     Street = user.Street,
                     PostalCode = user.PostalCode,
                     City = user.City
@@ -143,7 +143,7 @@ namespace Pizzeria.Controllers
         {
             _logger.LogCritical($"To: {user.Email}, Subject: Confirmation of payment, Message: Thank you for your order!");
 
-            _emailSender.SendEmailAsync(user.Email, "Confirmation of payment", "Thank you for your order!");
+            _emailSender.SendEmailAsync(user.Email, "Confirmation of payment(Email)", "Thank you for your order!");
 
 
             return View(user);
