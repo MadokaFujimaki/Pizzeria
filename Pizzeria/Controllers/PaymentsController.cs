@@ -21,7 +21,7 @@ namespace Pizzeria.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        //private readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
         private readonly CartService _cartService;
@@ -37,6 +37,7 @@ namespace Pizzeria.Controllers
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder,
             CartService cartService)
+
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -141,6 +142,9 @@ namespace Pizzeria.Controllers
         public IActionResult Receipt(int cartId, [Bind("CustomerName,PhoneNumber,Email,Street,PostalCode,City,CreditCardNumber,NameOnCard,YYMM,CCV,CardId")] PaymentViewModel user)
         {
             _logger.LogCritical($"To: {user.Email}, Subject: Confirmation of payment, Message: Thank you for your order!");
+
+            _emailSender.SendEmailAsync(user.Email, "Confirmation of payment", "Thank you for your order!");
+
 
             return View(user);
         }

@@ -1,56 +1,66 @@
 ﻿@model IEnumerable<Pizzeria.Models.Order>
-
 @{
     ViewData["Title"] = "Index";
 }
-
 <h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
 <table class="table">
     <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.OrderDateTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Total)
-                </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.CartItems)
+        <tr style="width:100%">
+            <th style="width:15%">
+                @Html.DisplayNameFor(model => model.OrderDateTime)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>*@
-            <th></th>
+            <th style="width:15%">
+                Customer
+            </th>
+            <th style="width:15%">
+                Address
+            </th>
+            <th style="width:15%">
+                Total amount
+            </th>
+            <th style="width:15%">
+                DIsh name
+            </th>
         </tr>
+        <tr></tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            @*<td>
-                @foreach (var item in item.CartItems.Select(x =>x.Dish.Name).ToList())
-                {
-                    @Html.DisplayFor(modelItem => item.Total)
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>*@
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total) kr
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total) kr
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total) kr
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total) kr
+                </td>
+                @*<td>
+                        @foreach (var item in item.CartItems.Select(x =>x.Dish.Name).ToList())
+                        {
+                            @Html.DisplayFor(modelItem => item.Total)
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>*@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -208,7 +208,6 @@ namespace Pizzeria.Services
                 OrderDateTime = DateTime.Now,
                 Total = total,
                 CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList(),
-                //UserId = _context.Carts.Where(x => x.CartId == cartId).Select(x => x.ApplicationUserId).FirstOrDefault(),
                 User = new PaymentViewModel
                 {
                     CustomerName = user.CustomerName,
