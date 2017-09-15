@@ -46,8 +46,8 @@ namespace PizzeriaXUnitTests
         {
             base.InitializeDatabase();
             var context = serviceProvider.GetService<ApplicationDbContext>();
-            context.Ingredients.Add(new Pizzeria.Models.Ingredient { Name = "BBB", Price = 2 });
-            context.Ingredients.Add(new Pizzeria.Models.Ingredient { Name = "AAA", Price = 5 });
+            context.Ingredients.Add(new Pizzeria.Models.Ingredient { Name = "AAA", Price = 2 });
+            context.Ingredients.Add(new Pizzeria.Models.Ingredient { Name = "BBB", Price = 5 });
             context.SaveChanges();
         }
 

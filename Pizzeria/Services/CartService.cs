@@ -17,11 +17,11 @@ namespace Pizzeria.Services
         private readonly ISession _session;
 
 
-        public CartService(ApplicationDbContext context, IServiceProvider services)
+        public CartService(ApplicationDbContext context, IServiceProvider services, ISession session)
         {
             _context = context;
             _services = services;
-            _session = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            _session = session;
         }
 
         public Cart GetCart()
@@ -201,25 +201,25 @@ namespace Pizzeria.Services
             return ingredients.Select(x => x.Price).Sum() * quantity;
         }
 
-        public void SaveOrder(int cartId, PaymentViewModel user)
+        public void SaveOrder(int cartId, PaymentViewModel user, int total)
         {
             var order = new Order
             {
                 OrderDateTime = DateTime.Now,
-                Total = _context.Carts.Where(x => x.CartId == cartId).Select(x => x.Total).FirstOrDefault(),
+                Total = total,
                 CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList(),
-                ApplicationUserId = _context.Carts.Where(x => x.CartId == cartId).Select(x => x.ApplicationUserId).FirstOrDefault(),
-                ApplicationUser = new ApplicationUser
+                //UserId = _context.Carts.Where(x => x.CartId == cartId).Select(x => x.ApplicationUserId).FirstOrDefault(),
+                User = new PaymentViewModel
                 {
                     CustomerName = user.CustomerName,
                     Street = user.Street,
                     PostalCode = user.PostalCode,
                     City = user.City,
-                    CardId = user.CardId,
-                    CreditCardNumber = user.CreditCardNumber,
-                    NameOnCard = user.CreditCardNumber,
-                    YYMM = user.YYMM,
-                    CCV = user.CCV
+                    //CardId = user.CardId,
+                    //CreditCardNumber = user.CreditCardNumber,
+                    //NameOnCard = user.CreditCardNumber,
+                    //YYMM = user.YYMM,
+                    //CCV = user.CCV
                 }
             };
             _context.Add(order);

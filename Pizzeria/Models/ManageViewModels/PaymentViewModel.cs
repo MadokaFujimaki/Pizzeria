@@ -8,7 +8,10 @@ namespace Pizzeria.Models.ManageViewModels
 {
     public class PaymentViewModel
     {
-        public string StatusMessage { get; set; }
+        [Key]
+        public int PaymentUserId { get; set; }
+
+        //public int MyProperty { get; set; }
 
         [Required]
         [Display(Name = "Customer name")]

@@ -21,13 +21,13 @@ namespace Pizzeria.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+        //private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
         private readonly CartService _cartService;
         private readonly ApplicationDbContext _context;
 
-        private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
+        //private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
         public PaymentsController(
             ApplicationDbContext context,
@@ -65,7 +65,7 @@ namespace Pizzeria.Controllers
                 {
                     
                     PhoneNumber = user.PhoneNumber,
-                    StatusMessage = StatusMessage,
+                    //StatusMessage = StatusMessage,
                     CustomerName = user.CustomerName,
                     Email= user.Email,
                     Street = user.Street,
@@ -78,7 +78,7 @@ namespace Pizzeria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(PaymentViewModel model)
+        public IActionResult Index(PaymentViewModel model)
         {
             ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "Name");
             if (!ModelState.IsValid)
@@ -86,47 +86,47 @@ namespace Pizzeria.Controllers
                 return View(model);
             }
 
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                user = new ApplicationUser();
-                user.CustomerName = model.CustomerName;
-                user.PhoneNumber = model.PhoneNumber;
-                user.Email = model.Email;
-                user.Street = model.Street;
-                user.PostalCode = model.PostalCode;
-                user.City = model.City;
-                user.CreditCardNumber = model.CreditCardNumber;
-                user.NameOnCard = model.NameOnCard;
-                user.YYMM = model.YYMM;
-                user.CCV = model.CCV;
-                user.CardId = model.CardId;
-                //throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-            else
-            {
-                var phoneNumber = user.PhoneNumber;
-                if (model.PhoneNumber != phoneNumber)
-                {
-                    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                    if (!setPhoneResult.Succeeded)
-                    {
-                        throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
-                    }
-                }
-                user.CustomerName = model.CustomerName;
-                user.Email = model.Email;
-                user.Street = model.Street;
-                user.PostalCode = model.PostalCode;
-                user.City = model.City;
+            //var user = await _userManager.GetUserAsync(User);
+            //if (user == null)
+            //{
+            //    user = new ApplicationUser();
+            //    user.CustomerName = model.CustomerName;
+            //    user.PhoneNumber = model.PhoneNumber;
+            //    user.Email = model.Email;
+            //    user.Street = model.Street;
+            //    user.PostalCode = model.PostalCode;
+            //    user.City = model.City;
+            //    user.CreditCardNumber = model.CreditCardNumber;
+            //    user.NameOnCard = model.NameOnCard;
+            //    user.YYMM = model.YYMM;
+            //    user.CCV = model.CCV;
+            //    user.CardId = model.CardId;
+            //    //throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            //}
+            //else
+            //{
+            //    var phoneNumber = user.PhoneNumber;
+            //    if (model.PhoneNumber != phoneNumber)
+            //    {
+            //        var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
+            //        if (!setPhoneResult.Succeeded)
+            //        {
+            //            throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
+            //        }
+            //    }
+            //    user.CustomerName = model.CustomerName;
+            //    user.Email = model.Email;
+            //    user.Street = model.Street;
+            //    user.PostalCode = model.PostalCode;
+            //    user.City = model.City;
 
-                user.CreditCardNumber = model.CreditCardNumber;
-                user.NameOnCard = model.NameOnCard;
-                user.YYMM = model.YYMM;
-                user.CCV = model.CCV;
-                user.CardId = model.CardId;
-            }
-            return RedirectToAction("ComfirmPayment", user);
+            //    user.CreditCardNumber = model.CreditCardNumber;
+            //    user.NameOnCard = model.NameOnCard;
+            //    user.YYMM = model.YYMM;
+            //    user.CCV = model.CCV;
+            //    user.CardId = model.CardId;
+            //}
+            return RedirectToAction("ComfirmPayment", model);
             //StatusMessage = "Your profile has been updated";
             //return RedirectToAction(nameof(Index));
         }

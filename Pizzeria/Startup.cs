@@ -11,14 +11,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Pizzeria.Data;
 using Pizzeria.Models;
 using Pizzeria.Services;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Pizzeria
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment _env;
+
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -33,11 +39,17 @@ namespace Pizzeria
             });
 
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            if (_env.IsProduction() || _env.IsStaging())
+            {
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseInMemoryDatabase("DefaultConnection"));
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseInMemoryDatabase("DefaultConnection"));
+            }
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -52,9 +64,13 @@ namespace Pizzeria
             services.AddTransient<DishService>();
             services.AddTransient<IngredientService>();
             services.AddTransient<DishCategoryService>();
+            services.AddTransient(typeof(ISession), serviceProvider =>
+            {
+                var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
+                return httpContextAccessor.HttpContext.Session;
+            });
             //services.AddTransient<CartItemIngredientService>();
             //services.AddTransient<PaymentService>();
-
 
             services.AddMvc();
 
@@ -69,8 +85,11 @@ namespace Pizzeria
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<ApplicationUser> userManager, ApplicationDbContext context, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<ApplicationUser> userManager, ApplicationDbContext context, RoleManager<IdentityRole> roleManager, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole();
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,6 +113,16 @@ namespace Pizzeria
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //if (_env.EnvironmentName == "Production")
+            //{
+            //    context.Database.Migrate();
+            //}
+
+            if (_env.IsProduction() || _env.IsStaging())
+            {
+                context.Database.Migrate();
+            }
 
             DbInitializer.Initialize(context, userManager, roleManager);
         }

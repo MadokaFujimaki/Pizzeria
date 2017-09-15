@@ -12,7 +12,9 @@ namespace Pizzeria.Data
     {
         public static void Initialize(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            var aUser = new ApplicationUser();
+            if (context.Users.ToList().Count == 0)
+            { 
+                var aUser = new ApplicationUser();
             aUser.UserName = "student@test.com";
             aUser.Email = "student@test.com";
             var r = userManager.CreateAsync(aUser, "Pa$$w0rd").Result;
@@ -32,6 +34,8 @@ namespace Pizzeria.Data
             var roleResult = roleManager.CreateAsync(adminRole).Result;
 
             userManager.AddToRoleAsync(adminUser, "Admin");
+
+            }
 
             //Om det inte finns Dishes i databasen
             if (context.Dishes.ToList().Count == 0)

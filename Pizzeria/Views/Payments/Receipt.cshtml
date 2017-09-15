@@ -62,6 +62,6 @@
         </div>
     </div>
 
-@{CartService.SaveOrder(cart.CartId, @Model );}
+@{CartService.SaveOrder(cart.CartId, @Model, @CartService.CalculateTotal(ingTotalPrice));}
 @{CartService.RemoveCart(cart.CartId);}
 

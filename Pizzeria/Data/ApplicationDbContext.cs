@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Pizzeria.Models;
 using Pizzeria.Services;
 using Microsoft.AspNetCore.Identity;
+using Pizzeria.Models.ManageViewModels;
 
 namespace Pizzeria.Data
 {
@@ -86,6 +87,7 @@ namespace Pizzeria.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Card> Cards { get; set; }
+        public DbSet<PaymentViewModel> PaymentUsers { get; set; }
 
         public DbSet<Order> Orders { get; set; }
         //public DbSet<OrderDish> OrderDishes { get; set; }
