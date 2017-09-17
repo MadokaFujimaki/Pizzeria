@@ -11,7 +11,7 @@ using System;
 namespace Pizzeria.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170915112344_Initial")]
+    [Migration("20170917105314_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,8 +227,6 @@ namespace Pizzeria.Migrations
 
                     b.Property<int>("DishId");
 
-                    b.Property<int?>("OrderId");
-
                     b.Property<int>("Quantity");
 
                     b.HasKey("CartItemId");
@@ -236,8 +234,6 @@ namespace Pizzeria.Migrations
                     b.HasIndex("CartId");
 
                     b.HasIndex("DishId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("CartItems");
                 });
@@ -325,66 +321,26 @@ namespace Pizzeria.Migrations
                     b.ToTable("Ingredients");
                 });
 
-            modelBuilder.Entity("Pizzeria.Models.ManageViewModels.PaymentViewModel", b =>
-                {
-                    b.Property<int>("PaymentUserId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CCV")
-                        .IsRequired()
-                        .HasMaxLength(3);
-
-                    b.Property<int>("CardId");
-
-                    b.Property<string>("City")
-                        .IsRequired();
-
-                    b.Property<string>("CreditCardNumber")
-                        .IsRequired();
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired();
-
-                    b.Property<string>("Email")
-                        .IsRequired();
-
-                    b.Property<string>("NameOnCard")
-                        .IsRequired();
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired();
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired();
-
-                    b.Property<string>("Street")
-                        .IsRequired();
-
-                    b.Property<string>("YYMM")
-                        .IsRequired()
-                        .HasMaxLength(4);
-
-                    b.HasKey("PaymentUserId");
-
-                    b.HasIndex("CardId");
-
-                    b.ToTable("PaymentUsers");
-                });
-
             modelBuilder.Entity("Pizzeria.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("CartId");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("CustomerName");
+
                     b.Property<DateTime>("OrderDateTime");
 
-                    b.Property<int>("Total");
+                    b.Property<string>("PostalCode");
 
-                    b.Property<int?>("UserPaymentUserId");
+                    b.Property<string>("Street");
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("UserPaymentUserId");
+                    b.HasIndex("CartId");
 
                     b.ToTable("Orders");
                 });
@@ -452,10 +408,6 @@ namespace Pizzeria.Migrations
                         .WithMany("CartItems")
                         .HasForeignKey("DishId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Pizzeria.Models.Order")
-                        .WithMany("CartItems")
-                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("Pizzeria.Models.CartItemIngredient", b =>
@@ -492,19 +444,12 @@ namespace Pizzeria.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Pizzeria.Models.ManageViewModels.PaymentViewModel", b =>
-                {
-                    b.HasOne("Pizzeria.Models.Card", "Card")
-                        .WithMany()
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Pizzeria.Models.Order", b =>
                 {
-                    b.HasOne("Pizzeria.Models.ManageViewModels.PaymentViewModel", "User")
+                    b.HasOne("Pizzeria.Models.Cart", "Cart")
                         .WithMany()
-                        .HasForeignKey("UserPaymentUserId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -5,7 +5,7 @@
 @foreach (var item in DishCategoryService.GetCategory())
 {
     <h3>@item.Discription</h3>
-            @foreach (var dish in item.Dishes)
+            @foreach (var dish in Model.Where(x =>x.DishCategory == item))
             {
                 Html.RenderPartial("_Dish", dish);
             }
