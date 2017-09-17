@@ -33,7 +33,7 @@ namespace Pizzeria.Data
             var adminRole = new IdentityRole { Name = "Admin"};
             var roleResult = roleManager.CreateAsync(adminRole).Result;
 
-            userManager.AddToRoleAsync(adminUser, "Admin");
+            userManager.AddToRoleAsync(adminUser, "Admin").Wait();
 
             }
 
