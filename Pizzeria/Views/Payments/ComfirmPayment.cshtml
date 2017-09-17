@@ -10,7 +10,7 @@
     var ingTotalPrice = @CartService.AddIngTotalPrice(@CartService.GetCartItemIng(cart.CartId));
 }
 
-<form asp-action="Receipt" asp-route-cartId="@cart.CartId">
+<form asp-action="Receipt" asp-route-cartId="@cart.CartId" asp-route-total="@CartService.CalculateTotal(ingTotalPrice)">
     <input type="hidden" asp-for="CustomerName" />
     <input type="hidden" asp-for="PhoneNumber" />
     <input type="hidden" asp-for="Email" />
@@ -145,3 +145,4 @@
         </div>
     </div>
 </form>
+

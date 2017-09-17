@@ -35,7 +35,7 @@ namespace Pizzeria.Services
             else
             {
                 var cartId = _session.GetInt32("CartId").Value;
-                _context.Dishes.Find(cartId).CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList();
+                //_context.Dishes.Find(cartId).CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList();
                 var cart = _context.Carts.Where(x => x.CartId == cartId).SingleOrDefault();
                 //cart.CartItems.Select(x => x.CartItemIngredients).ToList()
                 return cart;
@@ -82,9 +82,9 @@ namespace Pizzeria.Services
                     _session.SetInt32("CartId", cart.CartId);
 
                     CartItem cartItem = new CartItem();
-                    //cartItem.CartItemId = 0;
                     cartItem.CartId = cart.CartId;
                     cartItem.Dish = _context.Dishes.Find(dishId);
+                    cartItem.DishId = dishId;
                     cartItem.Quantity = 1;
 
                     _context.Add(cartItem);
@@ -93,27 +93,28 @@ namespace Pizzeria.Services
                 else
                 {
                     int cartId = _session.GetInt32("CartId").Value;
-                    if (_context.Carts.Where(x => x.CartId == cartId).Select(x => x.CartItems) != null)
-                    {
+                    //if (_context.Carts.Where(x => x.CartId == cartId).Select(x => x.CartItems) != null)
+                    //{
                         CartItem cartItem = new CartItem();
                         //cartItem.CartItemId = _context.CartItems.OrderByDescending(x => x.CartItemId).Select(x => x.CartItemId).FirstOrDefault() + 1;
                         cartItem.CartId = cartId;
-                        //cartItem.DishId = dishId;
                         cartItem.Dish = _context.Dishes.Find(dishId);
+                        cartItem.DishId = dishId;
                         cartItem.Quantity = 1;
                         _context.Add(cartItem);
-                    }
-                    else
-                    {
-                        CartItem cartItem = new CartItem();
-                        ////cartItem.CartItemId = 0;
-                        cartItem.CartId = cartId;
-                        cartItem.Dish = _context.Dishes.Find(dishId);
-                        cartItem.Quantity = 1;
-                        _context.Add(cartItem);
-                    }
+                    //}
+                    //else
+                    //{
+                    //    CartItem cartItem = new CartItem();
+                    //    cartItem.CartId = cartId;
+                    //    cartItem.Dish = _context.Dishes.Find(dishId);
+                    //    cartItem.DishId = dishId;
+                    //    cartItem.Quantity = 1;
+                    //    _context.Add(cartItem);
+                    //}
+                  
+                    //_context.Dishes.Find(cartId).CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList();
                     _context.SaveChanges();
-                    _context.Dishes.Find(cartId).CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList();
                 }
             }
         }
@@ -201,38 +202,15 @@ namespace Pizzeria.Services
             return ingredients.Select(x => x.Price).Sum() * quantity;
         }
 
-        public void SaveOrder(int cartId, PaymentViewModel user, int total)
+        public void RemoveCartSession(int cartId)
         {
-            var order = new Order
-            {
-                OrderDateTime = DateTime.Now,
-                Total = total,
-                CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList(),
-                User = new PaymentViewModel
-                {
-                    CustomerName = user.CustomerName,
-                    Street = user.Street,
-                    PostalCode = user.PostalCode,
-                    City = user.City,
-                    //CardId = user.CardId,
-                    //CreditCardNumber = user.CreditCardNumber,
-                    //NameOnCard = user.CreditCardNumber,
-                    //YYMM = user.YYMM,
-                    //CCV = user.CCV
-                }
-            };
-            _context.Add(order);
-            _context.SaveChanges();
-    }
-
-    public void RemoveCart(int cartId)
-    {
-        var cart = _context.Carts.Where(x => x.CartId == cartId).FirstOrDefault();
-        _context.Remove(cart);
-        _context.SaveChanges();
-        _session.Remove("CartId");
+            //var cart = _context.Carts.Where(x => x.CartId == cartId).FirstOrDefault();
+            //_context.Remove(cart);
+            //_context.SaveChanges();
+            _session.Remove("CartId");
 
             //var order = _context.Orders.Select(x => x);
+        }
+
     }
-}
 }

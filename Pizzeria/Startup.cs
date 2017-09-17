@@ -60,6 +60,7 @@ namespace Pizzeria
             services.AddTransient<UserManager<ApplicationUser>>();
             services.AddTransient<RoleManager<IdentityRole>>();
 
+            services.AddTransient<OrderService>();
             services.AddTransient<CartService>();
             services.AddTransient<DishService>();
             services.AddTransient<IngredientService>();

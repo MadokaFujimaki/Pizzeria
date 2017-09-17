@@ -139,12 +139,12 @@ namespace Pizzeria.Controllers
         }
 
         [HttpPost]
-        public IActionResult Receipt(int cartId, [Bind("CustomerName,PhoneNumber,Email,Street,PostalCode,City,CreditCardNumber,NameOnCard,YYMM,CCV,CardId")] PaymentViewModel user)
+        public IActionResult Receipt(int cartId,int total, [Bind("CustomerName,PhoneNumber,Email,Street,PostalCode,City,CreditCardNumber,NameOnCard,YYMM,CCV,CardId")] PaymentViewModel user)
         {
-            _logger.LogCritical($"To: {user.Email}, Subject: Confirmation of payment, Message: Thank you for your order!");
+            _context.Carts.FirstOrDefault(x => x.CartId == cartId).Total = total;
+           _logger.LogCritical($"To: {user.Email}, Subject: Confirmation of payment, Message: Thank you for your order!");
 
             _emailSender.SendEmailAsync(user.Email, "Confirmation of payment(Email)", "Thank you for your order!");
-
 
             return View(user);
         }

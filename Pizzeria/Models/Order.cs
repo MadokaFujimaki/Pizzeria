@@ -10,11 +10,15 @@ namespace Pizzeria.Models
     {
         public int OrderId { get; set; }
         public DateTime OrderDateTime { get; set; }
-        public int Total { get; set; }
-        public List<CartItem> CartItems { get; set; }
+        public int CartId { get; set; }
+        public Cart Cart { get; set; }
+        //public int TotalAmount { get; set; }
+        //public List<CartItem> CartItems { get; set; }
         //public List<OrderDish> OrderDishes { get; set; }
-        //public int UserId { get; set; }
-        public PaymentViewModel User { get; set; }
+        public string CustomerName { get; set; }
+        public string Street { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
 
     }
 }

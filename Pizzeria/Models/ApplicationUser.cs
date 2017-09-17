@@ -13,13 +13,5 @@ namespace Pizzeria.Models
         public string Street { get; set; }
         public string PostalCode { get; set; }
         public string City { get; set; }
-
-        //public int CardId { get; set; }
-        //public Card Card { get; set; }
-        //public string CreditCardNumber { get; set; }
-        //public string NameOnCard { get; set; }
-        //public string YYMM { get; set; }
-        //public string CCV { get; set; }
-
     }
 }

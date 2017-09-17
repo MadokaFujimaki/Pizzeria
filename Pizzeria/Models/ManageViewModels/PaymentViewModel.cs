@@ -44,6 +44,8 @@ namespace Pizzeria.Models.ManageViewModels
 
         [Required]
         [Display(Name = "Credit card number")]
+        [MaxLength(16, ErrorMessage = "The field Credit card number must be numeric with a length of '16'.")]
+        [MinLength(16, ErrorMessage = "The field Credit card number must be numeric with a length of '16'.")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "The field Credit card number must be numeric")]
         public string CreditCardNumber { get; set; }
 
@@ -52,8 +54,8 @@ namespace Pizzeria.Models.ManageViewModels
         public string NameOnCard { get; set; }
 
         [Required]
-        [MaxLength(4, ErrorMessage = "The field CCV must be numeric with a length of '4'.")]
-        [MinLength(4, ErrorMessage = "The field CCV must be numeric with a length of '4'.")]
+        [MaxLength(4, ErrorMessage = "The field YYMM must be numeric with a length of '4'.")]
+        [MinLength(4, ErrorMessage = "The field YYMM must be numeric with a length of '4'.")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "The field YYMM must be numeric")]
         public string YYMM { get; set; }
 

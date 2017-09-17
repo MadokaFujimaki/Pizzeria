@@ -1,5 +1,6 @@
 ﻿@model PaymentViewModel
 @inject Pizzeria.Services.CartService CartService
+@inject Pizzeria.Services.OrderService OrderService
 
 @{
     ViewData["Title"] = "Receipt";
@@ -62,6 +63,6 @@
         </div>
     </div>
 
-@{CartService.SaveOrder(cart.CartId, @Model, @CartService.CalculateTotal(ingTotalPrice));}
-@{CartService.RemoveCart(cart.CartId);}
+@{OrderService.SaveOrder(cart.CartId, @Model);}
+@{CartService.RemoveCartSession(cart.CartId);}
 

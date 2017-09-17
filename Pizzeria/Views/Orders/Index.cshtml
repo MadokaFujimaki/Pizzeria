@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<Pizzeria.Models.Order>
+@inject Pizzeria.Services.OrderService OrderService
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,42 +11,50 @@
 <table class="table">
     <thead>
         <tr style="width:100%">
-            <th style="width:15%">
+            <th style="width:20%">
                 @Html.DisplayNameFor(model => model.OrderDateTime)
             </th>
-            <th style="width:15%">
-                Customer
+            <th style="width:20%">
+                @Html.DisplayNameFor(model => model.CustomerName)
             </th>
-            <th style="width:15%">
+            <th style="width:20%">
                 Address
             </th>
-            <th style="width:15%">
+            <th style="width:20%">
+                DIshes
+            </th>
+            <th style="width:20%">
                 Total amount
             </th>
-            <th style="width:15%">
-                DIsh name
-            </th>
         </tr>
-        <tr></tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.OrderDateTime)
+                    <h5>@Html.DisplayFor(modelItem => item.OrderDateTime)</h5>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Total) kr
+                    <h5>@Html.DisplayFor(modelItem => item.CustomerName)</h5>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Total) kr
+                    <h5>@item.Street</h5>
+                    <h5>@item.PostalCode</h5>
+                    <h5>@item.City</h5>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Total) kr
+                    @foreach (var cartItem in @item.Cart.CartItems)
+                    {
+                        <h5>@OrderService.GetDish(cartItem.DishId).Name  x @cartItem.Quantity</h5>
+                        @if (@OrderService.GetAddIngs(cartItem.CartItemId) == null || @OrderService.GetAddIngs(cartItem.CartItemId).Any())
+                        {
+                            <h6>(+ @string.Join(", ", @OrderService.GetAddIngs(cartItem.CartItemId).Select(x => x.Name)))</h6>
+                        }
+                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Total) kr
+                    <h5>@item.Cart.Total kr</h5>
                 </td>
                 @*<td>
                         @foreach (var item in item.CartItems.Select(x =>x.Dish.Name).ToList())
@@ -56,8 +66,6 @@
                         @Html.DisplayFor(modelItem => item.Total)
                     </td>*@
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
                 </td>
             </tr>
