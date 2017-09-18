@@ -208,8 +208,6 @@ namespace Pizzeria.Services
             //_context.Remove(cart);
             //_context.SaveChanges();
             _session.Remove("CartId");
-
-            //var order = _context.Orders.Select(x => x);
         }
 
     }

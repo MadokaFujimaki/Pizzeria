@@ -26,6 +26,7 @@
             <th style="width:20%">
                 Total amount
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -56,15 +57,6 @@
                 <td>
                     <h5>@item.Cart.Total kr</h5>
                 </td>
-                @*<td>
-                        @foreach (var item in item.CartItems.Select(x =>x.Dish.Name).ToList())
-                        {
-                            @Html.DisplayFor(modelItem => item.Total)
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total)
-                    </td>*@
                 <td>
                     <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
                 </td>
