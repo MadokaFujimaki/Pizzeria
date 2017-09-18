@@ -7,6 +7,8 @@ using System.Text;
 using Xunit;
 using Pizzeria.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Pizzeria.Controllers;
 
 namespace PizzeriaXUnitTests
 {
@@ -16,13 +18,16 @@ namespace PizzeriaXUnitTests
         {
             base.InitializeDatabase();
             var context = serviceProvider.GetService<ApplicationDbContext>();
-            context.CartItems.Add(new Pizzeria.Models.CartItem {CartItemId=5, CartId = 3, Quantity = 1 });
-            context.CartItems.Add(new Pizzeria.Models.CartItem {CartItemId=6, CartId = 3, Quantity = 2 });          
-            context.CartItemIngredients.Add(new Pizzeria.Models.CartItemIngredient { CartItemId = 5, IngredientId = 100 });
-            context.CartItemIngredients.Add(new Pizzeria.Models.CartItemIngredient { CartItemId = 5, IngredientId = 101 });
-            context.CartItemIngredients.Add(new Pizzeria.Models.CartItemIngredient { CartItemId = 6, IngredientId = 101 });
-            context.Ingredients.Add(new Pizzeria.Models.Ingredient { IngredientId = 100, Name = "AAA", Price = 2});
-            context.Ingredients.Add(new Pizzeria.Models.Ingredient { IngredientId = 101, Name = "BBB", Price = 5});
+            context.CartItems.Add(new CartItem { CartItemId = 5, CartId = 3, Quantity = 1, DishId = 10 });
+            context.CartItems.Add(new CartItem { CartItemId = 6, CartId = 3, Quantity = 2, DishId = 11 });
+            context.CartItemIngredients.Add(new CartItemIngredient { CartItemId = 5, IngredientId = 100 });
+            context.CartItemIngredients.Add(new CartItemIngredient { CartItemId = 5, IngredientId = 101 });
+            context.CartItemIngredients.Add(new CartItemIngredient { CartItemId = 6, IngredientId = 101 });
+            context.Ingredients.Add(new Ingredient { IngredientId = 100, Name = "AAA", Price = 2});
+            context.Ingredients.Add(new Ingredient { IngredientId = 101, Name = "BBB", Price = 5});
+            context.Dishes.Add(new Dish { DishId = 10, Price= 100});
+            context.Dishes.Add(new Dish { DishId = 11, Price = 150 });
+            context.Carts.Add(new Cart { CartId =3});
 
             context.SaveChanges();
         }
@@ -55,13 +60,30 @@ namespace PizzeriaXUnitTests
         public void Return_Total_Additional_Ingredients_Price()
         {
             //Arrange
-            var context = serviceProvider.GetService<ApplicationDbContext>();
             var cartService = serviceProvider.GetService<CartService>();
             //Act
             var ingList = cartService.GetCartItemIng(3);
             var result = cartService.AddIngTotalPrice(ingList);
             //Assert
             Assert.Equal(result, 17);
+        }
+
+        [Fact]
+        public void Return_Total_Price()
+        {
+            //Arrange
+            var httpContext = new DefaultHttpContext();
+            httpContext.Session = new TestSession();
+            httpContext.Session.SetInt32("CartId", 3);
+
+            var context = serviceProvider.GetService<ApplicationDbContext>();
+            var cartService = serviceProvider.GetService<CartService>();
+            cartService = new CartService(context, serviceProvider, httpContext.Session);
+        
+            //Act
+            var result = cartService.CalculateTotal(30);
+            //Assert
+            Assert.Equal(result, 430);
         }
     }
 }

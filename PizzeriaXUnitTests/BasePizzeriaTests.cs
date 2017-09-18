@@ -32,12 +32,8 @@ namespace PizzeriaXUnitTests
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            //var httpContext = new DefaultHttpContext();
-            //httpContext.Session = new TestSession();
-
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<CartService>();
-            //services.AddTransient<CategoryService>();
             services.AddTransient<DishService>();
             services.AddTransient<IngredientService>();
             services.AddTransient<HomeController>();
