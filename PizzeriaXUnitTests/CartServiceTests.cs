@@ -51,7 +51,17 @@ namespace PizzeriaXUnitTests
             Assert.Equal(result, ingList);
         }
 
-        
-
+        [Fact]
+        public void Return_Total_Additional_Ingredients_Price()
+        {
+            //Arrange
+            var context = serviceProvider.GetService<ApplicationDbContext>();
+            var cartService = serviceProvider.GetService<CartService>();
+            //Act
+            var ingList = cartService.GetCartItemIng(3);
+            var result = cartService.AddIngTotalPrice(ingList);
+            //Assert
+            Assert.Equal(result, 17);
+        }
     }
 }
