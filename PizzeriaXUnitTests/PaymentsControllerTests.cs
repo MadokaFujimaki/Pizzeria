@@ -11,6 +11,10 @@ using System.Text;
 using Xunit;
 using Pizzeria.Services;
 using Pizzeria.Data;
+using Microsoft.AspNetCore.Identity;
+using Pizzeria.Models;
+using System.Text.Encodings.Web;
+using Microsoft.Extensions.Logging.Internal;
 
 namespace PizzeriaXUnitTests
 {
@@ -20,40 +24,39 @@ namespace PizzeriaXUnitTests
         {
             base.InitializeDatabase();
             var context = serviceProvider.GetService<ApplicationDbContext>();
+            context.Carts.Add(new Cart { CartId = 3 });
             context.SaveChanges();
         }
 
         [Fact]
-        public void Receipt_Log()
+        public void Show_Log_After_Payment()
         {
             //Arrange
-            //var viewContext = new ViewContext()
-            //{
-            //    HttpContext = new DefaultHttpContext()
-            //};
+            var context = serviceProvider.GetService<ApplicationDbContext>();
             var controller = serviceProvider.GetService<PaymentsController>();
-;
-            var loggerMock = new Mock<ILogger>();
+            var loggerMock = new Mock<ILogger<ManageController>>();
+            var emailMock = new Mock<IEmailSender>();
+            controller = new PaymentsController(context, null, null, emailMock.Object, loggerMock.Object, null, null);
+
             PaymentViewModel user = new PaymentViewModel()
             {
                 Email = "admin@test.com",
-                //CustomerName = "",
-                //PhoneNumber = "",
-                //Street = "",
-                //PostalCode = "",
-                //City = "",
-                //CreditCardNumber = "",
-                //NameOnCard = "",
-                //YYMM = "",
-                //CCV = "",
-                //CardId = 1
             };
 
             //Act
-            //controller.Receipt(1, user);
+            controller.Receipt(3, 100, user);
 
             ////Assert
-            //loggerMock.Verify(x => x.LogCritical("To: admin@test.com, Subject: Confirmation of payment, Message: Thank you for your order!"), Times.Exactly(1));
+            //loggerMock.Verify(x => x.Log("To: admin@test.com, Subject: Confirmation of payment, Message: Thank you for your order!"), Times.Exactly(1));
+            loggerMock.Verify(
+             m => m.Log(
+             LogLevel.Critical,
+             It.IsAny<EventId>(),
+             It.Is<FormattedLogValues>(v => v.ToString().Contains("To: admin@test.com, Subject: Confirmation of payment, Message: Thank you for your order!")),
+             It.IsAny<Exception>(),
+             It.IsAny<Func<object, Exception, string>>()
+             )
+             );
         }
     }
 }
