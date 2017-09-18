@@ -23,7 +23,6 @@ namespace PizzeriaXUnitTests
 
             var services = new ServiceCollection();
 
-
             services.AddDbContext<ApplicationDbContext>(b =>
                 b.UseInMemoryDatabase("Pizzadatabase")
                 .UseInternalServiceProvider(efServiceProvider));
@@ -38,7 +37,6 @@ namespace PizzeriaXUnitTests
             services.AddTransient<IngredientService>();
             services.AddTransient<HomeController>();
             services.AddTransient<PaymentsController>();
-            //services.AddSingleton<IHttpContextAccessor>(new DefaultHttpContext().);
             services.AddTransient<ISession, TestSession>();
 
             serviceProvider = services.BuildServiceProvider();

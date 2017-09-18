@@ -15,7 +15,6 @@ namespace Pizzeria.Services
         private readonly IServiceProvider _services;
         private readonly ISession _session;
 
-
         public OrderService(ApplicationDbContext context, IServiceProvider services, ISession session)
         {
             _context = context;
@@ -36,7 +35,6 @@ namespace Pizzeria.Services
             _context.Add(order);
 
             _context.SaveChanges();
-
         }
 
         public Dish GetDish(int dishId)

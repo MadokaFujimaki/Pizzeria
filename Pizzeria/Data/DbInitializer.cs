@@ -131,7 +131,6 @@ namespace Pizzeria.Data
                 context.Cards.Add(visa);
                 context.Cards.Add(masterCard);
 
-                //context.AddRange(capricciosa, margaritha, hawaii);
                 context.SaveChanges();
             }
         }

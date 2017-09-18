@@ -67,7 +67,6 @@ namespace Pizzeria.Controllers
                 City = user.City
                 
             };
-
             return View(model);
         }
 
@@ -117,10 +116,6 @@ namespace Pizzeria.Controllers
 
             user.City = model.City;
             var setCityResult = await _userManager.UpdateAsync(user);
-
-
-
-
 
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));

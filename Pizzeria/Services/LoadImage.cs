@@ -17,7 +17,5 @@ namespace Pizzeria.Services
             fileStream.Close();
             return byteData;
         }
-
-
     }
 }

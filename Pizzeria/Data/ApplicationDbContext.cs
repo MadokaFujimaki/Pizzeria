@@ -32,7 +32,6 @@ namespace Pizzeria.Data
                .WithMany(i => i.CartItems)
                .HasForeignKey(di => di.DishId);
 
-
             builder.Entity<DishIngredient>()
                 .HasKey(di => new { di.DishId, di.IngredientId });
 
@@ -46,7 +45,6 @@ namespace Pizzeria.Data
                 .WithMany(i => i.DishIngredients)
                 .HasForeignKey(di => di.IngredientId);
 
-
             builder.Entity<CartItemIngredient>()
                .HasOne(c => c.CartItem)
                .WithMany(d => d.CartItemIngredients)
@@ -56,22 +54,6 @@ namespace Pizzeria.Data
                .HasOne(di => di.Ingredient)
                .WithMany(i => i.CartItemIngredients)
                .HasForeignKey(di => di.IngredientId);
-
-
-            //builder.Entity<OrderDish>()
-            //    .HasKey(od => new { od.OrderId, od.DishId });
-
-            //builder.Entity<OrderDish>()
-            //    .HasOne(od => od.Order)
-            //    .WithMany(o => o.OrderDishes)
-            //    .HasForeignKey(od => od.OrderId);
-
-            //builder.Entity<OrderDish>()
-            //    .HasOne(od => od.Dish)
-            //    .WithMany(d => d.OrderDishes)
-            //    .HasForeignKey(od => od.DishId);
-
-
 
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
@@ -87,8 +69,6 @@ namespace Pizzeria.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Card> Cards { get; set; }
-        //public DbSet<PaymentViewModel> PaymentUsers { get; set; }
         public DbSet<Order> Orders { get; set; }
-        //public DbSet<OrderDish> OrderDishes { get; set; }
     }
 }

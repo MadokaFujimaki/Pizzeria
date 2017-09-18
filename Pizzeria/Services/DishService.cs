@@ -26,7 +26,6 @@ namespace Pizzeria.Services
                 {
                     var ingredientName = _context.Ingredients.Where(i => i.IngredientId == ingredient.IngredientId).Select(n => n.Name).Single();
                     ingredients.Add(ingredientName);
-                    //ingredients += ingredientName + " ";
                 }
             }
             return string.Join(",  ",ingredients.OrderBy(x => x).ToList());

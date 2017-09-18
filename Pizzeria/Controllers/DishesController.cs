@@ -119,19 +119,6 @@ namespace Pizzeria.Controllers
                 _context.DishIngredients.Add(di);
             }
 
-            //foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
-            //{
-            //    var listIngredient = _context.Ingredients.FirstOrDefault(d => d.IngredientId == Int32.Parse(item.Remove(0, 11)));
-            //    foreach (var ing in _context.Ingredients)
-            //    {
-            //        if (listIngredient.IngredientId == ing.IngredientId)
-            //        {
-            //            DishIngredient di = new DishIngredient() { Dish = dish, Ingredient = listIngredient };
-            //            _context.DishIngredients.Add(di);
-            //        }
-            //    }
-            //}
-
             if (id != dish.DishId)
             {
                 return NotFound();
@@ -194,7 +181,6 @@ namespace Pizzeria.Controllers
         {
             return _context.Dishes.Any(e => e.DishId == id);
         }
-
 
         public FileContentResult GetImg(int id)
         {

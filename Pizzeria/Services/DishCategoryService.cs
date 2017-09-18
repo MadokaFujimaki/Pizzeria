@@ -21,7 +21,5 @@ namespace Pizzeria.Services
             IEnumerable<DishCategory> categories = _context.DishCategories.Select(x => x);
             return categories;
         }
-
-
     }
 }

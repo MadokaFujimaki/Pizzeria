@@ -22,18 +22,6 @@
     <input type="hidden" asp-for="NameOnCard" />
     <input type="hidden" asp-for="YYMM" />
     <input type="hidden" asp-for="CCV" />
-      @*asp-route-customerName="@Model.CustomerName"
-      asp-route-phoneNumber="@Model.PhoneNumber"
-      asp-route-emailAddress="@Model.Email"
-      asp-route-street="@Model.Street"
-      asp-route-postalCode="@Model.PostalCode"
-      asp-route-city="@Model.City"
-      asp-route-cardId="@Model.CardId"
-      asp-route-creditCardNumber="@Model.CreditCardNumber"
-      asp-route-nameOnCard="@Model.NameOnCard"
-      asp-route-yymm="@Model.YYMM"
-      asp-route-ccv="@Model.CCV"
-      method="post">*@
 
     <h2>COMFIRM PAYMENT</h2>
     <br />
@@ -141,7 +129,6 @@
             <br />
             <br />
             <button type="submit" class="btn btn-default" style="border:double;">Pay</button>
-            @*<button type="submit" class="btn btn-default" name="pay-@cart.CartId" style="border:double;">Pay</button>*@
         </div>
     </div>
 </form>

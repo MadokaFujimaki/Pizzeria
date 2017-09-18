@@ -31,11 +31,11 @@ namespace Pizzeria.Controllers
 
         public PaymentsController(
             ApplicationDbContext context,
-          UserManager<ApplicationUser> userManager,
-          SignInManager<ApplicationUser> signInManager,
-          IEmailSender emailSender,
-          ILogger<ManageController> logger,
-          UrlEncoder urlEncoder,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IEmailSender emailSender,
+            ILogger<ManageController> logger,
+            UrlEncoder urlEncoder,
             CartService cartService)
         {
             _userManager = userManager;
@@ -86,47 +86,7 @@ namespace Pizzeria.Controllers
             {
                 return View(model);
             }
-
-            //var user = await _userManager.GetUserAsync(User);
-            //if (user == null)
-            //{
-            //    user = new ApplicationUser();
-            //    user.CustomerName = model.CustomerName;
-            //    user.PhoneNumber = model.PhoneNumber;
-            //    user.Email = model.Email;
-            //    user.Street = model.Street;
-            //    user.PostalCode = model.PostalCode;
-            //    user.City = model.City;
-            //    user.CreditCardNumber = model.CreditCardNumber;
-            //    user.NameOnCard = model.NameOnCard;
-            //    user.YYMM = model.YYMM;
-            //    user.CCV = model.CCV;
-            //    user.CardId = model.CardId;
-            //    //throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            //}
-            //else
-            //{
-            //    var phoneNumber = user.PhoneNumber;
-            //    if (model.PhoneNumber != phoneNumber)
-            //    {
-            //        var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-            //        if (!setPhoneResult.Succeeded)
-            //        {
-            //            throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
-            //        }
-            //    }
-            //    user.CustomerName = model.CustomerName;
-            //    user.Email = model.Email;
-            //    user.Street = model.Street;
-            //    user.PostalCode = model.PostalCode;
-            //    user.City = model.City;
-
-            //    user.CreditCardNumber = model.CreditCardNumber;
-            //    user.NameOnCard = model.NameOnCard;
-            //    user.YYMM = model.YYMM;
-            //    user.CCV = model.CCV;
-            //    user.CardId = model.CardId;
-            //}
+  
             return RedirectToAction("ComfirmPayment", model);
             //StatusMessage = "Your profile has been updated";
             //return RedirectToAction(nameof(Index));

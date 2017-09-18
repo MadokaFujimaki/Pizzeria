@@ -23,11 +23,6 @@ namespace Pizzeria.Controllers
             _cartService = cartService;
         }
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
         public async Task<IActionResult> Index()
         {
             return View(await _context.Dishes.Include(x => x.DishCategory).ToListAsync());

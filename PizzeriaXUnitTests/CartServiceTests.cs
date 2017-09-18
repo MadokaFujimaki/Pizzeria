@@ -28,7 +28,6 @@ namespace PizzeriaXUnitTests
             context.Dishes.Add(new Dish { DishId = 10, Price= 100});
             context.Dishes.Add(new Dish { DishId = 11, Price = 150 });
             context.Carts.Add(new Cart { CartId =3});
-
             context.SaveChanges();
         }
 
@@ -37,7 +36,9 @@ namespace PizzeriaXUnitTests
         {
             var  context = serviceProvider.GetService<ApplicationDbContext>();
             var cartService = serviceProvider.GetService<CartService>();//Arrange
+
             var result = cartService.AddIngPrice(context.Ingredients.ToList(), 2);//Act
+
             Assert.Equal(result, 14);//Assert
         }
 
@@ -50,8 +51,10 @@ namespace PizzeriaXUnitTests
             var ing1 = context.Ingredients.Where(x => x.IngredientId == 100).FirstOrDefault();
             var ing2 = context.Ingredients.Where(x => x.IngredientId == 101).FirstOrDefault();
             var ingList = new List<Ingredient> { ing1, ing2, ing2, ing2 };
+
             //Act
             var result = cartService.GetCartItemIng(3);
+
             //Assert
             Assert.Equal(result, ingList);
         }
@@ -82,6 +85,7 @@ namespace PizzeriaXUnitTests
         
             //Act
             var result = cartService.CalculateTotal(30);
+
             //Assert
             Assert.Equal(result, 430);
         }

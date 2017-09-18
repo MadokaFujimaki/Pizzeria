@@ -47,7 +47,6 @@ namespace PizzeriaXUnitTests
             controller.Receipt(3, 100, user);
 
             ////Assert
-            //loggerMock.Verify(x => x.Log("To: admin@test.com, Subject: Confirmation of payment, Message: Thank you for your order!"), Times.Exactly(1));
             loggerMock.Verify(
              m => m.Log(
              LogLevel.Critical,

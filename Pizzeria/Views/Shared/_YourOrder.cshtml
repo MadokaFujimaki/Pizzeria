@@ -3,8 +3,6 @@
 <h2>YOUR ORDER</h2>
 <br />
 
-
-
 @{
     var cart = CartService.GetCart();
     var ingTotalPrice = cart != null ? @CartService.AddIngTotalPrice(@CartService.GetCartItemIng(cart.CartId)) : 0;
@@ -79,73 +77,6 @@
                     </table>
                     }
                 }
-            @*<table style="margin-top:10px;width:100%">
-                    <tr style="border-top:double">
-                    <td style="width:80%">Additional ingredients</td>
-                    <td style="width:20%;">
-                        +  @ingTotalPrice kr
-                    </td>
-                </tr>
-            </table>*@
         }
-
-            @*<table style="width:100%">
-                <tr>
-                    <td style="width:70%"></td>
-                    <td style="width:20%">
-                        <button type="submit" class="pay" name="pay-@cart.CartId">
-                            Pay
-                        </button>
-                    </td>
-                </tr>
-            </table>*@
     }
-
 }
-
-
-
-@*@{
-        var cartItem = CartService.GetCartItem();
-    }
-      @if (cartItem != null)
-      {
-          foreach (var item in cartItem)
-          {  <h1>
-        @item.Dish.Name
-    </h1>
-          }
-      }*@
-
-
-@*<ul>
-        @{
-            var cart = CartService.GetCartForCurrentSession(Context.Session).Result;
-        }
-        @if (cart != null)
-        {
-            var total = CartService.CalculateTotal(cart.CartId);
-            <ul>
-
-                @foreach (var ci in cart.Items)
-                {
-                    <li>
-                        @ci.Dish.Description @ci.Dish.Price
-                        <button type="submit" class="remove" name="customize-@ci.CartItemId">
-                            <span class="glyphicon glyphicon-adjust" title="Customize"></span>
-                        </button>
-                        <button type="submit" class="customize" name="remove-@ci.CartItemId">
-                            <span class="glyphicon glyphicon-trash" title="Remove"></span>
-                        </button>
-                    </li>
-                }
-            </ul>
-        }
-    </ul>*@
-
-
-
-@*@if (cart.Items.Count > 0)
-    {
-        <h4>Total</h4>
-    }*@

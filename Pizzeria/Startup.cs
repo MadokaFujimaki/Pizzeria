@@ -32,16 +32,12 @@ namespace Pizzeria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.Configure<IISOptions>(options =>
             {
-
             });
-
 
             if (_env.IsProduction() || _env.IsStaging())
             {
-
                 services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             }
@@ -65,13 +61,12 @@ namespace Pizzeria
             services.AddTransient<DishService>();
             services.AddTransient<IngredientService>();
             services.AddTransient<DishCategoryService>();
+
             services.AddTransient(typeof(ISession), serviceProvider =>
             {
                 var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
                 return httpContextAccessor.HttpContext.Session;
             });
-            //services.AddTransient<CartItemIngredientService>();
-            //services.AddTransient<PaymentService>();
 
             services.AddMvc();
 
@@ -114,11 +109,6 @@ namespace Pizzeria
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            //if (_env.EnvironmentName == "Production")
-            //{
-            //    context.Database.Migrate();
-            //}
 
             if (_env.IsProduction() || _env.IsStaging())
             {

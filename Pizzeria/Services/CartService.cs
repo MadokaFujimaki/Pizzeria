@@ -16,7 +16,6 @@ namespace Pizzeria.Services
         private readonly IServiceProvider _services;
         private readonly ISession _session;
 
-
         public CartService(ApplicationDbContext context, IServiceProvider services, ISession session)
         {
             _context = context;
@@ -35,9 +34,7 @@ namespace Pizzeria.Services
             else
             {
                 var cartId = _session.GetInt32("CartId").Value;
-                //_context.Dishes.Find(cartId).CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList();
                 var cart = _context.Carts.Where(x => x.CartId == cartId).SingleOrDefault();
-                //cart.CartItems.Select(x => x.CartItemIngredients).ToList()
                 return cart;
             }
         }
@@ -47,27 +44,6 @@ namespace Pizzeria.Services
             var names = _context.CartItemIngredients.Where(x => x.CartItemId == cartItemId).Select(x => x.Ingredient.Name).ToList();
             return names;
         }
-
-        //public IEnumerable<CartItem> GetCartItem()
-        //{
-        //    byte[] cartIdBytes = new byte[4];
-        //    bool exist = _session.TryGetValue("CartId", out cartIdBytes);
-        //    if (!exist)
-        //    {
-        //        Cart cart = new Cart();
-        //        _context.Add(cart);
-        //        _context.SaveChanges();
-        //        _session.SetInt32("CartId", cart.CartId);
-        //        return null;
-        //    }
-        //    else
-        //    {
-        //        var cartId = _session.GetInt32("CartId").Value;
-        //        var cartItem = _context.Item.Where(x => x.CartId == cartId);
-        //        return cartItem;
-        //    }
-        //}
-
 
         public void AddDish(int dishId)
         {
@@ -93,27 +69,14 @@ namespace Pizzeria.Services
                 else
                 {
                     int cartId = _session.GetInt32("CartId").Value;
-                    //if (_context.Carts.Where(x => x.CartId == cartId).Select(x => x.CartItems) != null)
-                    //{
-                        CartItem cartItem = new CartItem();
-                        //cartItem.CartItemId = _context.CartItems.OrderByDescending(x => x.CartItemId).Select(x => x.CartItemId).FirstOrDefault() + 1;
-                        cartItem.CartId = cartId;
-                        cartItem.Dish = _context.Dishes.Find(dishId);
-                        cartItem.DishId = dishId;
-                        cartItem.Quantity = 1;
-                        _context.Add(cartItem);
-                    //}
-                    //else
-                    //{
-                    //    CartItem cartItem = new CartItem();
-                    //    cartItem.CartId = cartId;
-                    //    cartItem.Dish = _context.Dishes.Find(dishId);
-                    //    cartItem.DishId = dishId;
-                    //    cartItem.Quantity = 1;
-                    //    _context.Add(cartItem);
-                    //}
-                  
-                    //_context.Dishes.Find(cartId).CartItems = _context.CartItems.Where(x => x.CartId == cartId).ToList();
+
+                    CartItem cartItem = new CartItem();
+                    cartItem.CartId = cartId;
+                    cartItem.Dish = _context.Dishes.Find(dishId);
+                    cartItem.DishId = dishId;
+                    cartItem.Quantity = 1;
+                    _context.Add(cartItem);
+
                     _context.SaveChanges();
                 }
             }
@@ -121,31 +84,15 @@ namespace Pizzeria.Services
 
         public void DeleteDish(int cartItemId)
         {
-            //int cartId = _session.GetInt32("CartId").Value;
-            //var cart = _context.Carts.FirstOrDefault(x => x.CartId == cartId);
             var cartItem = _context.CartItems.Where(x => x.CartItemId == cartItemId).FirstOrDefault();
             _context.Remove(cartItem);
             _context.SaveChanges();
-
-            //    var dishIngs = _context.DishIngredients.Where(x => x.DishId == dishId);
-
-            //    foreach (var ing in dishIngs)
-            //    {
-            //        _context.Remove(ing);
-            //    }
-            //    _context.SaveChanges();
-            //}
         }
 
         public int AddIngTotalPrice(List<Ingredient> cartItemIngredients)
         {
-            //int total = 0;
             if (cartItemIngredients != null)
             {
-                //foreach (var cartItemIng in cartItemIngredients)
-                //{
-                //    total = cartItemIngredients.Select(x => x.Price)* 
-                //}
                 return cartItemIngredients.Select(x => x.Price).Sum();
             }
             return 0;
@@ -182,7 +129,6 @@ namespace Pizzeria.Services
         public List<Ingredient> GetCartItemIng(int cartId)
         {
             var cartItemIngs = new List<Ingredient>();
-            //return _context.CartItemIngredients.Where(x => x.CartItem.CartId == cartId).Select(x => x.Ingredient).ToList();'
             var cartItems = _context.CartItems.Where(x => x.CartId == cartId);
             foreach (var cartItem in cartItems)
             {
@@ -204,9 +150,6 @@ namespace Pizzeria.Services
 
         public void RemoveCartSession(int cartId)
         {
-            //var cart = _context.Carts.Where(x => x.CartId == cartId).FirstOrDefault();
-            //_context.Remove(cart);
-            //_context.SaveChanges();
             _session.Remove("CartId");
         }
 
