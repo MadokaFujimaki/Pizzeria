@@ -32,6 +32,8 @@ namespace Pizzeria.Models.ManageViewModels
 
         [Required]
         [Display(Name = "Postal code")]
+        [MaxLength(5, ErrorMessage = "The field Postal code must be numeric with a length of '5'.")]
+        [MinLength(5, ErrorMessage = "The field Postal code must be numeric with a length of '5'.")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "The field Postal code must be numeric")]
         public string PostalCode { get; set; }
 

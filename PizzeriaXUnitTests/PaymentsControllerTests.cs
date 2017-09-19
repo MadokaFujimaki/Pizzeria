@@ -46,7 +46,7 @@ namespace PizzeriaXUnitTests
             //Act
             controller.Receipt(3, 100, user);
 
-            ////Assert
+            //Assert
             loggerMock.Verify(
              m => m.Log(
              LogLevel.Critical,

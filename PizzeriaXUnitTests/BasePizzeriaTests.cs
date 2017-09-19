@@ -37,6 +37,7 @@ namespace PizzeriaXUnitTests
             services.AddTransient<IngredientService>();
             services.AddTransient<HomeController>();
             services.AddTransient<PaymentsController>();
+            services.AddTransient<CartItemsController>();
             services.AddTransient<ISession, TestSession>();
 
             serviceProvider = services.BuildServiceProvider();

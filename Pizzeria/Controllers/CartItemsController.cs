@@ -172,8 +172,6 @@ namespace Pizzeria.Controllers
             var cartItem =  _context.CartItems.Where(x => x.CartItemId == cartItemId).FirstOrDefault();
             cartItem.Dish = _context.Dishes.FirstOrDefault(x => x.DishId == cartItem.DishId);
             cartItem.Dish.DishIngredients = _context.DishIngredients.Where(x => x.DishId == cartItem.DishId).ToList();
-            //_context.Update(cartItem);
-            //_context.SaveChanges();
             foreach (var item in cartItem.Dish.DishIngredients)
             {
                 item.Ingredient = _context.Ingredients.Where(x => x.IngredientId == item.IngredientId).FirstOrDefault();
@@ -199,15 +197,6 @@ namespace Pizzeria.Controllers
                 _context.CartItemIngredients.Add(di);
                 _context.SaveChanges();
             }
-            //var quantity = 1;
-            //if (cartItem.Quantity < 0)
-            //{
-            //    quantity = 1;
-            //}
-            //else
-            //{
-            //    quantity = cartItem.Quantity;
-            //}
             var quantity = cartItem.Quantity;
             cartItem = _context.CartItems.Where(x => x.CartItemId == cartItem.CartItemId).FirstOrDefault();
             cartItem.Dish = _context.Dishes.FirstOrDefault(x => x.DishId == cartItem.DishId);
@@ -222,7 +211,6 @@ namespace Pizzeria.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
-            //return View(cartItem);
         }
     }
 }
