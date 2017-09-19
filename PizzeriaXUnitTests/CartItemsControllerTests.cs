@@ -1,17 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
-using Moq;
 using Pizzeria.Controllers;
-using Pizzeria.Models.ManageViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using Pizzeria.Services;
 using Pizzeria.Data;
-using Microsoft.AspNetCore.Identity;
 using Pizzeria.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;

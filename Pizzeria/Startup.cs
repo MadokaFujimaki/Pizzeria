@@ -61,6 +61,7 @@ namespace Pizzeria
             services.AddTransient<DishService>();
             services.AddTransient<IngredientService>();
             services.AddTransient<DishCategoryService>();
+            services.AddTransient<PaymentService>();
 
             services.AddTransient(typeof(ISession), serviceProvider =>
             {

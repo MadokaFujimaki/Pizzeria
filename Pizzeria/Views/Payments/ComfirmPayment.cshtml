@@ -1,5 +1,6 @@
 ﻿@model PaymentViewModel
 @inject Pizzeria.Services.CartService CartService
+@inject Pizzeria.Services.PaymentService PaymentService
 
 @{
     ViewData["Title"] = "ComfirmPayment";
@@ -109,7 +110,8 @@
                 </tr>
                 <tr style="border-bottom:double">
                     <td style="width:50%">Credit card number:</td>
-                    <td style="width:50%">@Model.CreditCardNumber</td>
+                    @*<td style="width:50%">@Model.CreditCardNumber</td>*@
+                    <td style="width:50%">@PaymentService.HideNumbers(@Model.CreditCardNumber)</td>
                 </tr>
                 <tr style="border-bottom:double">
                     <td style="width:50%">Name on card:</td>
