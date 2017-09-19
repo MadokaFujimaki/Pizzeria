@@ -39,7 +39,7 @@
                 <select asp-for="DishCategoryId" class="form-control" asp-items="ViewBag.DishCategoryId"></select>
                 <span asp-validation-for="DishCategoryId" class="text-danger"></span>
             </div>
-
+            <label class="control-label">Ingredients</label>
             <div class="form-group checkbox">
                 @foreach (var ingredient in _ingredients.AllIngredients().OrderBy(x => x.Name).ToList())
                 {            
@@ -50,7 +50,7 @@
                                 </p>
                 }
             </div>
-
+            <br />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

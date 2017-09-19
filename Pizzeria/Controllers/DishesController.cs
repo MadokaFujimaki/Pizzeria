@@ -119,12 +119,19 @@ namespace Pizzeria.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DishId,Name,Price,DishCategoryId")] Dish dish, IFormCollection collection, IFormFile file)
         {
-            var filePath = Path.GetTempFileName();
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            if (file != null)
             {
-                await file.CopyToAsync(stream);
+                var filePath = Path.GetTempFileName();
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                dish.Image = LoadImage.GetPictureData(filePath);
             }
-            dish.Image = LoadImage.GetPictureData(filePath);
+            else
+            {
+                dish.Image = await _context.Dishes.Where(x => x.DishId == dish.DishId).Select(x => x.Image).FirstOrDefaultAsync();
+            }
 
             _dishService.RemoveIngredients(id);
             List<Ingredient> testList = new List<Ingredient>();

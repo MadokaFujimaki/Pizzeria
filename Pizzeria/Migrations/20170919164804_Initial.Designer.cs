@@ -11,7 +11,7 @@ using System;
 namespace Pizzeria.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170919152017_Initial")]
+    [Migration("20170919164804_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

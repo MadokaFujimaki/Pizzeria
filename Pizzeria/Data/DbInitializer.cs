@@ -59,7 +59,7 @@ namespace Pizzeria.Data
                 var onions = new Ingredient { Name = "Onions", Price = 10 };
                 var mushrooms = new Ingredient { Name = "Mushrooms", Price = 20 };
                 var apple = new Ingredient { Name = "Apple", Price = 20 };
-                var currySauce = new Ingredient { Name = "Curry Sauce", Price = 15 };
+                var currySauce = new Ingredient { Name = "Curry sauce", Price = 15 };
                 var banana = new Ingredient { Name = "Banana", Price = 10 };
 
                 var capricciosa = new Dish { Name = "Capricciosa", Price = 79 , Image=pizzaImage, DishCategory = pizza };
@@ -69,7 +69,7 @@ namespace Pizzeria.Data
                 var veggie = new Dish { Name = "Veggie", Price = 95, Image = pizzaImage, DishCategory = pizza };
                 var calzone = new Dish { Name = "Calzone", Price = 100, Image = carzonesImage, DishCategory = carzone };
                 var calzoneSp = new Dish { Name = "Calzone SP", Price = 115, Image = carzonesImage, DishCategory = carzone };
-                var applePie = new Dish { Name = "Apple Pie", Price = 70, Image = dessertImage, DishCategory = dessert };
+                var applePie = new Dish { Name = "Apple pie", Price = 70, Image = dessertImage, DishCategory = dessert };
 
                 var capricciosaHam = new DishIngredient { Dish = capricciosa, Ingredient = ham };
                 var capricciosaMushrooms = new DishIngredient { Dish = capricciosa, Ingredient = mushrooms };
