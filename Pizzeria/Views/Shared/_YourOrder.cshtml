@@ -10,7 +10,7 @@
 
 @{
     <table style="width:100%">
-        <tr style="border:double">
+        <tr style="border-bottom: 2px solid black">
             <td style="width:60%;padding-left:5px"><h4>Total</h4></td>
             <td style="width:30%"><h4>@CartService.CalculateTotal(ingTotalPrice)  kr</h4></td>
             <td style="width:10%;padding-right:5px">
@@ -18,16 +18,16 @@
                 {
                     @if (cart.CartItems == null || !cart.CartItems.Any())
                     {
-                        <input type="submit" class="pay" disabled value="Pay" style="border:double;background:none;">
+                        <input type="submit" class="pay" disabled value="Pay" style="border:none;background-color:white;padding:5px;width:50px">
                     }
                     else
                     {
-                        <input type="submit" class="pay" value="Pay" name="pay-@cart.CartId" style="border:double;background:none;">
+                        <input type="submit" class="pay" value="Pay" name="pay-@cart.CartId" style="border:none;background-color:white;padding:5px;width:50px">
                     }
                 }
                 else
                 {
-                    <input type="submit" class="pay" disabled value="Pay" style="border:double;background:none;" >
+                    <input type="submit" class="pay" disabled value="Pay" style="border:none;background-color:white;padding:5px;width:50px" >
                 }
 
             </td>

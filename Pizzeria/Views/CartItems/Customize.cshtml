@@ -9,7 +9,7 @@
             <br />
 <form asp-action="Customize" >
     <input type="hidden" asp-for="CartItemId" />
-    <table style="width:30%;border:double">
+    <table style="width:30%;background-color:wheat">
         <tr>
             <td style="width:10%;padding-left:10px"><h4>Dish:</h4></td>
             <td style="width:1%"></td>
@@ -24,7 +24,7 @@
             <td style="width:10%;padding-left:10px"><h4>Quantity:</h4></td>
             <td style="width:1%"></td>
             <td style="width:19%;padding-right:10px">
-                <input asp-for="Quantity" class="form-control" style="border:double;background:none"/>
+                <input asp-for="Quantity" class="form-control" style="border:none;background-color:white"/>
                 <span asp-validation-for="Quantity"  class="text-danger"></span>
             </td>
         </tr>
@@ -58,7 +58,7 @@
         }
     </div>
     <br />
-    <input type="submit" value="Save" class="btn btn-default" style="border:double;"/>
+    <input type="submit" value="Save" class="btn btn-default" style="background-color:wheat;border:none"/>
 </form>
 
 

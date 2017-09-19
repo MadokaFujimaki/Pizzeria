@@ -8,24 +8,19 @@
 
 <form asp-controller="Home" asp-action="AlacarteAction" method="post">
     <div class="row"  style="margin-top:20px">
-        <div class="col-md-7"  style="border:solid;padding-left:20px;padding-right:20px;margin-left:20px;margin-right:20px">
+        <div class="col-md-7"  style="background-color:wheat;padding-left:20px;padding-right:20px;margin-left:20px;margin-right:20px">
             <h2>A LA CARTE</h2>
             @{
                 Html.RenderPartial("_Alacarte", Model);
                 }
         </div>
         <div class="col-md-1"></div>
-        <div class="col-md-4" style="height:110px; background-color:black;padding-bottom:20px;padding-left:20px;padding-right:20px;margin-left:20px;margin-right:20px">
-        </div>
-        <div class="col-md-4" style="border:solid;padding-bottom:20px;padding-left:20px;padding-right:20px;margin-left:20px;margin-right:20px">
+        @*<div class="col-md-4" style="height:30px; background-color:wheat;padding-bottom:20px;padding-left:20px;padding-right:20px;margin-left:20px;margin-right:20px">*@
+        @*</div>*@
+        <div class="col-md-4" style="background-color:wheat;padding-bottom:20px;padding-left:20px;padding-right:20px;margin-left:20px;margin-right:20px">
             @{ 
                 Html.RenderPartial("_YourOrder");
             }
-        </div>
-      
-          
-        </div>
-
-      
-
+        </div>  
+    </div>
 </form>

@@ -29,15 +29,15 @@
     <div class="row">
         <div class="col-md-6">
 
-            <table style="width:100%;border:double">
+            <table style="width:100%;background-color:wheat">
                 <tr>
-                    <td style="width:30%;padding-left:5px"><h4>Total amount</h4></td>
+                    <td style="width:30%;padding-left:10px"><h4>Total amount</h4></td>
                     <td></td>
                     <td></td>
                     <td ><h4>@CartService.CalculateTotal(ingTotalPrice)  kr</h4></td>
                 </tr>
                 <tr style="border-bottom:double">
-                    <td style="padding-left:5px"><h6 style="padding-top:0;margin-top:0">Additional ingredients</h6></td>
+                    <td style="padding-left:10px"><h6 style="padding-top:0;margin-top:0">Additional ingredients</h6></td>
                     <td></td>
                     <td></td>
                     <td><h6 style="padding-top:0;margin-top:0">(@ingTotalPrice kr)</h6></td>
@@ -46,7 +46,7 @@
                 @foreach (var cartItem in cart.CartItems)
                 {                 
                     <tr>
-                        <td style="width:70%;padding-left:5px">@cartItem.Dish.Name</td>
+                        <td style="width:70%;padding-left:10px">@cartItem.Dish.Name</td>
                         <td></td>
                         <td style="width:20%">@cartItem.Dish.Price  kr</td>
                         <td style="width:10%">x @cartItem.Quantity</td>
@@ -54,7 +54,7 @@
                             @if (cartItem.CartItemIngredients.Any())
                             {
                                 <tr style="border-bottom:solid;border-width:thin">
-                                    <td style="width:70%;padding-left:5px;">
+                                    <td style="width:70%;padding-left:10px;">
                                         <h6 style="padding-top:0;padding-bottom:5px;margin:0">+ @string.Join(",  ", @CartService.GetCartItemIngName(cartItem.CartItemId))</h6>
                                     </td>
                                     <td></td>
@@ -74,53 +74,53 @@
             </table>
 
             <br />
-            <h4 style="text-decoration-line:underline">Delivery address</h4>
+            <h4 >Delivery address</h4>
             <table style="width:100%">
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">Customer name:</td>
                     <td style="width:50%">@Model.CustomerName</td>
                 </tr>
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">Phone number:</td>
                     <td style="width:50%">@Model.PhoneNumber</td>
                 </tr>
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">Email address:</td>
                     <td style="width:50%">@Model.Email</td>
                 </tr>
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">Street:</td>
                     <td style="width:50%">@Model.Street</td>
                 </tr>
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">Postal code:</td>
                     <td style="width:50%">@Model.PostalCode</td>
                 </tr>
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">City:</td>
                     <td style="width:50%">@Model.City</td>
                 </tr>
             </table>
             <br />
-            <h4 style="text-decoration-line:underline">Your payment method</h4>
+            <h4>Your payment method</h4>
             <table style="width:100%">
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">Card:</td>
                     <td style="width:50%">@Model.Card.Name</td>
                 </tr>
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">Credit card number:</td>
                     <td style="width:50%">@PaymentService.HideNumbers(@Model.CreditCardNumber)</td>
                 </tr>
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">Name on card:</td>
                     <td style="width:50%">@Model.NameOnCard</td>
                 </tr>
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">YYMM:</td>
                     <td style="width:50%">@Model.YYMM</td>
                 </tr>
-                <tr style="border-bottom:double">
+                <tr style="border-bottom:solid;border-bottom-width:thin">
                     <td style="width:50%">CCV:</td>
                     <td style="width:50%">@Model.CCV</td>
                 </tr>
@@ -129,7 +129,7 @@
             <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
             <br />
             <br />
-            <button type="submit" class="btn btn-default" style="border:double;">Pay</button>
+            <button type="submit" class="btn btn-default" style="border:none;background-color:wheat">Pay</button>
         </div>
     </div>
 </form>
