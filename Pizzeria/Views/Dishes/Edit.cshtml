@@ -31,11 +31,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image"  type="file" name="file" multiple class="form-control" />
+                <input asp-for="Image"  type="file" name="file" multiple />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DishCategoryId" class="control-label"></label>
+                <label class="control-label">Category</label>
                 <select asp-for="DishCategoryId" class="form-control" asp-items="ViewBag.DishCategoryId"></select>
                 <span asp-validation-for="DishCategoryId" class="text-danger"></span>
             </div>

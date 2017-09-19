@@ -18,6 +18,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
+            <th>
+               Category
+            </th>
+            <th>
+                Ingredients
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -29,6 +35,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)  kr
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DishCategory.Description)
+            </td>
+            <td>
+                    @string.Join(", ", item.DishIngredients.Select(x => x.Ingredient.Name))
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DishId">Edit</a> |

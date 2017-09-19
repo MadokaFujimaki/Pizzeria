@@ -283,7 +283,7 @@ namespace Pizzeria.Migrations
                     b.Property<int>("DishCategoryId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Discription");
+                    b.Property<string>("Description");
 
                     b.HasKey("DishCategoryId");
 

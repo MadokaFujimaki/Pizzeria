@@ -8,7 +8,7 @@ namespace Pizzeria.Models
     public class DishCategory
     {
         public int DishCategoryId { get; set; }
-        public string Discription { get; set; }
+        public string Description { get; set; }
         public List<Dish> Dishes { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using System;
 namespace Pizzeria.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170917125101_Initial")]
+    [Migration("20170919152017_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -284,7 +284,7 @@ namespace Pizzeria.Migrations
                     b.Property<int>("DishCategoryId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Discription");
+                    b.Property<string>("Description");
 
                     b.HasKey("DishCategoryId");
 

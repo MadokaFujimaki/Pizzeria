@@ -30,7 +30,8 @@ namespace Pizzeria.Controllers
             //return View(await _context.Dishes.Include(d => d.DishIngredients).ThenInclude(d => d.Ingredient).Include(c => c.DishCategory).ToListAsync());
 
             var applicationDbContext = _context.Dishes.Include(d => d.DishCategory);
-            return View(await _context.Dishes.Include(di => di.DishCategory).ToListAsync());
+            return View(await _context.Dishes.Include(di => di.DishCategory).Include(d => d.DishIngredients)
+                .ThenInclude(di => di.Ingredient).ToListAsync());
         }
 
         // GET: Dishes/Details/5
@@ -42,6 +43,7 @@ namespace Pizzeria.Controllers
             }
 
             var dish = await _context.Dishes
+                .Include(d => d.DishCategory)
                  .Include(d => d.DishIngredients)
                 .ThenInclude(di => di.Ingredient)
                 .SingleOrDefaultAsync(m => m.DishId == id);
@@ -56,7 +58,7 @@ namespace Pizzeria.Controllers
         // GET: Dishes/Create
         public IActionResult Create()
         {
-            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "Discription");
+            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "Description");
             return View();
         }
 
@@ -89,7 +91,7 @@ namespace Pizzeria.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "Discription", dish.DishCategoryId);
+            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "Description", dish.DishCategoryId);
             return View(dish);
         }
 
@@ -106,7 +108,7 @@ namespace Pizzeria.Controllers
             {
                 return NotFound();
             }
-            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "Discription", dish.DishCategoryId);
+            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "Description", dish.DishCategoryId);
             return View(dish);
         }
 
@@ -159,7 +161,7 @@ namespace Pizzeria.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "Discription", dish.DishCategoryId);
+            ViewData["DishCategoryId"] = new SelectList(_context.DishCategories, "DishCategoryId", "Description", dish.DishCategoryId);
             return View(dish);
         }
 
@@ -172,6 +174,7 @@ namespace Pizzeria.Controllers
             }
 
             var dish = await _context.Dishes
+                .Include(d => d.DishCategory)
                  .Include(d => d.DishIngredients)
                 .ThenInclude(di => di.Ingredient)
                 .SingleOrDefaultAsync(m => m.DishId == id);

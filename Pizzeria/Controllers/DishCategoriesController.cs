@@ -54,7 +54,7 @@ namespace Pizzeria.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DishCategoryId,Discription")] DishCategory dishCategory)
+        public async Task<IActionResult> Create([Bind("DishCategoryId,Description")] DishCategory dishCategory)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Pizzeria.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DishCategoryId,Discription")] DishCategory dishCategory)
+        public async Task<IActionResult> Edit(int id, [Bind("DishCategoryId,Description")] DishCategory dishCategory)
         {
             if (id != dishCategory.DishCategoryId)
             {

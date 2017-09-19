@@ -43,9 +43,9 @@ namespace Pizzeria.Data
                 var carzonesImage = LoadImage.GetPictureData("wwwroot/images/carzone.jpg");
                 var dessertImage = LoadImage.GetPictureData("wwwroot/images/dessert.jpg");
 
-                var pizza = new DishCategory { Discription = "Pizza" };
-                var carzone = new DishCategory { Discription = "Calzone" };
-                var dessert = new DishCategory { Discription = "Dessert" };
+                var pizza = new DishCategory { Description = "Pizza" };
+                var carzone = new DishCategory { Description = "Calzone" };
+                var dessert = new DishCategory { Description = "Dessert" };
 
                 context.DishCategories.Add(pizza);
                 context.DishCategories.Add(carzone);
