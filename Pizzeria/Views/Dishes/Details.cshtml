@@ -4,12 +4,17 @@
     ViewData["Title"] = "Details";
 }
 
+@{
+    var url = Url.Action("GetImg", "Dishes", new { id = Model.DishId });
+}
+
 <h2>Details</h2>
 
 <div>
     <h4>Dish</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <img src="@url" style="width: 30%" />
+    <dl class="dl-horizontal">        
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -20,17 +25,23 @@
             @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.Price) kr
+        </dd>
+        <dt>
+            Ingredients
+        </dt>
+        <dd>
+     @string.Join(", ", Model.DishIngredients.Select(x=>x.Ingredient.Name))
         </dd>
     </dl>
 </div>
 
-<div>
+@*<div>
     @foreach (var di in Model.DishIngredients)
     {
         <p>@di.Ingredient.Name</p>
     }
-</div>
+</div>*@
 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.DishId">Edit</a> |

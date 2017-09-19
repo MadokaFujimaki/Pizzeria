@@ -9,6 +9,7 @@ using Pizzeria.Data;
 using Pizzeria.Models;
 using Microsoft.AspNetCore.Http;
 using Pizzeria.Services;
+using System.IO;
 
 namespace Pizzeria.Controllers
 {
@@ -64,8 +65,15 @@ namespace Pizzeria.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DishId,Name,Price,DishCategoryId")] Dish dish, IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("DishId,Name,Price,Image,DishCategoryId")] Dish dish, IFormCollection collection, IFormFile file)
         {
+            var filePath = Path.GetTempFileName();
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            dish.Image = LoadImage.GetPictureData(filePath);
+
             List<Ingredient> testList = new List<Ingredient>();
             foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
             {
@@ -107,8 +115,15 @@ namespace Pizzeria.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DishId,Name,Price,DishCategoryId")] Dish dish, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("DishId,Name,Price,DishCategoryId")] Dish dish, IFormCollection collection, IFormFile file)
         {
+            var filePath = Path.GetTempFileName();
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            dish.Image = LoadImage.GetPictureData(filePath);
+
             _dishService.RemoveIngredients(id);
             List<Ingredient> testList = new List<Ingredient>();
             foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
@@ -157,7 +172,10 @@ namespace Pizzeria.Controllers
             }
 
             var dish = await _context.Dishes
+                 .Include(d => d.DishIngredients)
+                .ThenInclude(di => di.Ingredient)
                 .SingleOrDefaultAsync(m => m.DishId == id);
+
             if (dish == null)
             {
                 return NotFound();

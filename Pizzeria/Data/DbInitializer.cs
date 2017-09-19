@@ -34,7 +34,6 @@ namespace Pizzeria.Data
             var roleResult = roleManager.CreateAsync(adminRole).Result;
 
             userManager.AddToRoleAsync(adminUser, "Admin").Wait();
-
             }
 
             //Om det inte finns Dishes i databasen

@@ -1,15 +1,16 @@
 ﻿@model Pizzeria.Models.Dish
-
 @{
     ViewData["Title"] = "Delete";
 }
-
+@{
+    var url = Url.Action("GetImg", "Dishes", new { id = Model.DishId });
+}
 <h2>Delete</h2>
-
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Dish</h4>
     <hr />
+    <img src="@url" style="width: 30%" />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -23,8 +24,14 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
+        <dt>
+            Ingredients
+        </dt>
+        <dd>
+            @string.Join(", ", Model.DishIngredients.Select(x => x.Ingredient.Name))
+        </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="DishId" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
